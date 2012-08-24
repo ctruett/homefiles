@@ -1,0 +1,35 @@
+#!/bin/sh
+# $Xorg: xinitrc.cpp,v 1.3 2000/08/17 19:54:30 cpqbld Exp $
+
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+sysresources=/etc/X11/xinit/.Xresources
+sysmodmap=/etc/X11/xinit/.Xmodmap
+
+# merge in defaults and keymaps
+
+if [ -f $sysresources ]; then
+  /usr/bin/xrdb -merge $sysresources
+fi
+
+if [ -f $sysmodmap ]; then
+  /usr/bin/xmodmap $sysmodmap
+fi
+
+if [ -f $userresources ]; then
+  /usr/bin/xrdb -merge $userresources
+fi
+
+if [ -f $usermodmap ]; then
+  /usr/bin/xmodmap $usermodmap
+fi
+
+setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'
+xgamma -gamma 0.8
+compton -i 0.9 &
+autocutsel -selection PRIMARY -fork &
+xflux -z 30533
+ibus-daemon &
+xset +fp /usr/share/fonts/local
+~/Develop/wallpaper-rotate &
+~/Develop/startdwm

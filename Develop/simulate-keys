@@ -1,0 +1,4 @@
+#!/bin/bash 
+sleep 0.25
+xdotool key Alt+2
+xdotool key Alt+1
