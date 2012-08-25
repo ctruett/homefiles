@@ -3,29 +3,37 @@
 
 /* appearance */
 static const char font[]            = "-*-termsyn.icons-medium-r-*--14-*-*-*-*-*-*-*";
-static const char normbordercolor[] = "#000000";
-static const char normbgcolor[]     = "#000000";
-static const char normfgcolor[]     = "#888888";
-static const char selbordercolor[]  = "#1e1e1e";
-static const char selbgcolor[]      = "#000000";
-static const char selfgcolor[]      = "#ffffff";
+#define NUMCOLORS 9 
+static const char colors[NUMCOLORS][ColLast][9] = {
+// border foreground background
+{ "#212121", "#696969", "#121212" }, // 0 = normal
+{ "#6C9E9F", "#FFFFFF", "#121212" }, // 1 = selected
+{ "#212121", "#FFFFFF", "#B98585" }, // 2 = red
+{ "#212121", "#FFFFFF", "#759073" }, // 3 = green
+{ "#212121", "#FFFFFF", "#C0AE81" }, // 4 = yellow
+{ "#212121", "#FFFFFF", "#6C9E9F" }, // 5 = blue
+{ "#212121", "#FFFFFF", "#8DD5D6" }, // 6 = cyan
+{ "#212121", "#FFFFFF", "#D28DBB" }, // 7 = magenta
+{ "#212121", "#FFFFFF", "#DAD5BC" }, // 8 = grey
+};
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "×", "´", "æ" };
+static const char *tags[] = { "\u00c7", "´", "Î", "ê", "º" };
 
 static const Rule rules[] = {
   /* class      instance    title       tags mask     isfloating   monitor */
-  { NULL,       NULL,       NULL,       0,            True,        -1 },
-  { "Firefox",  NULL,       NULL,       1<<1,         False,       -1 },
-	{ "Firefox",	"Dialog",		NULL,	    	0,		      	True,		     -1 },
-	{ "Firefox",	"Download", NULL,	    	0,		      	True,		     -1 },
-	{ "Firefox",	"Places",		NULL,		    0,	       		True,		     -1 },
-  { "URxvt",    NULL,       NULL,       0,            False,       -1 },
-  { "Vlc",      NULL,       NULL,       1<<2,         False,       -1 },
+  { NULL      , NULL , NULL        , 0    , True  , -1 } , 
+  { "Firefox" , NULL , NULL        , 1<<1 , True  , -1 } , 
+  { "URxvt"   , NULL , NULL        , 0    , False , -1 } , 
+  { "URxvt"   , NULL , "pyradio"   , 1<<3 , False , -1 } , 
+  { "URxvt"   , NULL , "alsamixer" , 1<<3 , False , -1 } , 
+  { "URxvt"   , NULL , "weechat"   , 1<<4 , False , -1 } , 
+  { "Vlc"     , NULL , NULL        , 1<<2 , False , -1 } , 
+  { "Gbfed"   , NULL , NULL        , 0    , False , -1 } , 
 };
 
 /* layout(s) */
@@ -52,13 +60,15 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "urxvt", NULL };
+static const char  *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
+static const char *termcmd[]    = { "urxvt", NULL };
+// static const char *radio[]      = { "urxvt", "-e", "pyradio", NULL };
+// static const char *mixer[]      = { "urxvt", "-e", "alsamixer", NULL };
 static const char *volumedown[] = { "amixer", "-q", "set", "PCM", "2%-", "unmute", NULL };
 static const char *volumeup[]   = { "amixer", "-q", "set", "PCM", "2%+", "unmute", NULL };
 static const char *mute[]       = { "amixer", "-q", "set", "PCM", "toggle", NULL };
-static const char *vlc[]       = { "vlc-play", NULL };
-static const char *rotatewall[]       = { "wallpaper-rotate-new", NULL };
+static const char *vlc[]        = { "vlc-play", NULL };
+static const char *rotatewall[] = { "wallpaper-rotate-new", NULL };
 
 static Key keys[] = {
   /* modifier                     key        function        argument */
@@ -68,6 +78,8 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_bracketright, spawn,    {.v = rotatewall } },
   { MODKEY,                       XK_v,      spawn,          {.v = vlc } },
   { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+  // { MODKEY,                       XK_r,      spawn,          {.v = radio } },
+  // { MODKEY|ShiftMask,             XK_m,      spawn,          {.v = mixer } },
   { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
   { MODKEY,                       XK_b,      togglebar,      {0} },
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -91,15 +103,15 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
   { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
   TAGKEYS(                        XK_1,                      0)
-    TAGKEYS(                        XK_2,                      1)
-    TAGKEYS(                        XK_3,                      2)
-    TAGKEYS(                        XK_4,                      3)
-    TAGKEYS(                        XK_5,                      4)
-    TAGKEYS(                        XK_6,                      5)
-    TAGKEYS(                        XK_7,                      6)
-    TAGKEYS(                        XK_8,                      7)
-    TAGKEYS(                        XK_9,                      8)
-    { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+  TAGKEYS(                        XK_2,                      1)
+  TAGKEYS(                        XK_3,                      2)
+  TAGKEYS(                        XK_4,                      3)
+  TAGKEYS(                        XK_5,                      4)
+  TAGKEYS(                        XK_6,                      5)
+  TAGKEYS(                        XK_7,                      6)
+  TAGKEYS(                        XK_8,                      7)
+  TAGKEYS(                        XK_9,                      8)
+  { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
 
 

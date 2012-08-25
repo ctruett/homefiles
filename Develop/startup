@@ -1,0 +1,32 @@
+#!/bin/bash
+
+startup ()
+{
+  setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win' # Fix keys
+  xgamma -gamma 0.8                                                   # Fix gamma
+  compton -i 0.9 &                                                    # Transparency
+  autocutsel -selection PRIMARY -fork &                               # Combine clipboards
+  xflux -z 30533                                                      # Load flux
+  ibus-daemon &                                                       # Load japanese input
+  xset +fp /usr/share/fonts/local                                     # Load local fonts
+  xset +fp ~/.fonts                                                   # Load local fonts
+  feh --bg-fill ~/Wallpapers/toys-danboard-wallpaper.jpg &
+
+  sleep 0.25                                                          # Pause, then switch workspaces to activate wallpaper
+  xdotool key Alt+2
+  xdotool key Alt+1
+
+  urxvt &                                                             # Load initial programs
+  urxvt -e alsamixer &
+  urxvt -e pyradio &
+  urxvt -e weechat-curses &
+  firefox &
+
+  ~/Develop/dwm-statusbar &
+}
+
+# Start DWM
+while true; do
+  startup
+  dwm 2> ~/.dwm.log
+done

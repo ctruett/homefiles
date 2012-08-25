@@ -5,8 +5,8 @@ URxvt*termName: rxvt-unicode
 ! URxvt*boldFont: xft:Dina:pixelsize=14:antialias=false:hinting=false
 ! URxvt*font: xft:Ohsnap:pixelsize=13:antialias=false:hinting=false
 ! URxvt*boldFont: xft:Ohsnap:pixelsize=13:antialias=false:hinting=false
-URxvt*font: xft:termsyn.icons:pixelsize=14:antialias=false:hinting=false
-URxvt*boldFont: xft:termsyn.icons:pixelsize=14:antialias=false:hinting=false
+URxvt*font: xft:termsyn.icons:pixelsize=13:antialias=false:hinting=false
+URxvt*boldFont: xft:termsyn.icons:pixelsize=13:antialias=false:hinting=false
 
 ! terminal colours
 ! *foreground:#a0a0a0
@@ -57,46 +57,6 @@ URxvt*scrollBar: false
 *depth: 32
 *background: [75]#000000
 
-
-!! drop in Solarized colorscheme for Xresources/Xdefaults
-
-! *background:            [75]#002b36
-! *foreground:            #657b83
-! *fading:                40
-! *fadeColor:             #002b36
-! *cursorColor:           #93a1a1
-! *pointerColorBackground:#586e75
-! *pointerColorForeground:#93a1a1
-
-! !! black dark/light
-! *color0:                #8394962
-! *color8:                #002b36
-
-! !! red dark/light
-! *color1:                #dc322f
-! *color9:                #cb4b16
-
-! !! green dark/light
-! *color2:                #859900
-! *color10:               #586e75
-
-! !! yellow dark/light
-! *color3:                #b58900
-! *color11:               #657b83
-
-! !! blue dark/light
-! *color4:                #268bd2
-! *color12:               #839496
-
-! !! magenta dark/light
-! *color5:                #d33682
-! *color13:               #6c71c4
-
-! !! cyan dark/light
-! *color6:                #2aa198
-! *color14:               #93a1a1
-
-! !! white dark/light
-! *color7:                #eee8d5
-! *color15:               #fdf6e3
-
+*perl-ext-common:  matcher
+*urlLauncher:      firefox
+*matcher.button:   1
