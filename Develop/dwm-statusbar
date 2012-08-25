@@ -29,7 +29,7 @@ print_volume() {
 
 print_datetime() {
   datetime="$(date "+%a %b %d - %I:%M%p")"
-  echo -ne "\x06 È ${datetime} "
+  echo -ne "\x02 È ${datetime} "
 }
 
 # network (see: http://dzen.geekmode.org/dwiki/doku.php?id=dzen:network-meter)

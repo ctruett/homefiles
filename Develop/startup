@@ -6,11 +6,12 @@ startup ()
   xgamma -gamma 0.8                                                   # Fix gamma
   compton -i 0.9 &                                                    # Transparency
   autocutsel -selection PRIMARY -fork &                               # Combine clipboards
-  xflux -z 30533                                                      # Load flux
+  # xflux -z 30533                                                      # Load flux
   ibus-daemon &                                                       # Load japanese input
-  xset +fp /usr/share/fonts/local                                     # Load local fonts
-  xset +fp ~/.fonts                                                   # Load local fonts
-  feh --bg-fill ~/Wallpapers/toys-danboard-wallpaper.jpg &
+   xset +fp /usr/share/fonts/local                                     # Load local fonts
+   xset +fp ~/.fonts                                                   # Load local fonts
+  # feh --bg-fill ~/Wallpapers/toys-danboard-wallpaper.jpg &
+  feh --bg-tile ~/Wallpapers/simpledesktops.com.png
 
   sleep 0.25                                                          # Pause, then switch workspaces to activate wallpaper
   xdotool key Alt+2

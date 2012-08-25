@@ -5,8 +5,9 @@
 static const char font[]            = "-*-termsyn.icons-medium-r-*--14-*-*-*-*-*-*-*";
 #define NUMCOLORS 9 
 static const char colors[NUMCOLORS][ColLast][9] = {
+// Dark Colors
 // border foreground background
-{ "#212121", "#696969", "#121212" }, // 0 = normal
+{ "#212121", "#aaaaaa", "#121212" }, // 0 = normal
 { "#6C9E9F", "#FFFFFF", "#121212" }, // 1 = selected
 { "#212121", "#FFFFFF", "#B98585" }, // 2 = red
 { "#212121", "#FFFFFF", "#759073" }, // 3 = green
@@ -16,6 +17,7 @@ static const char colors[NUMCOLORS][ColLast][9] = {
 { "#212121", "#FFFFFF", "#D28DBB" }, // 7 = magenta
 { "#212121", "#FFFFFF", "#DAD5BC" }, // 8 = grey
 };
+
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
@@ -29,8 +31,8 @@ static const Rule rules[] = {
   { NULL      , NULL , NULL        , 0    , True  , -1 } , 
   { "Firefox" , NULL , NULL        , 1<<1 , True  , -1 } , 
   { "URxvt"   , NULL , NULL        , 0    , False , -1 } , 
-  { "URxvt"   , NULL , "pyradio"   , 1<<3 , False , -1 } , 
-  { "URxvt"   , NULL , "alsamixer" , 1<<3 , False , -1 } , 
+  { "URxvt"   , NULL , "pyradio"   , 1<<3 , True  , -1 } , 
+  { "URxvt"   , NULL , "alsamixer" , 1<<3 , True  , -1 } , 
   { "URxvt"   , NULL , "weechat"   , 1<<4 , False , -1 } , 
   { "Vlc"     , NULL , NULL        , 1<<2 , False , -1 } , 
   { "Gbfed"   , NULL , NULL        , 0    , False , -1 } , 
