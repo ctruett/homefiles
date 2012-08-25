@@ -2,66 +2,67 @@ call pathogen#infect()
 
 set t_Co=256
 colo zenburn
+" colo github
 set go=-T
 set go=-t
 set go=-r
 set go=-R
 set guifont=DejaVu\ Sans\ Mono\ 8
 
-" Forget compatibility with Vi. Who cares.  
-set nocompatible  
+" Forget compatibility with Vi. Who cares.
+set nocompatible
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowb
 set noswapfile
 
-" Enable filetypes  
-filetype on  
-filetype plugin on  
-filetype indent on  
-syntax on  
+" Enable filetypes
+filetype on
+filetype plugin on
+filetype indent on
+syntax on
 
-" Display current cursor position in lower right corner.  
-set ruler  
+" Display current cursor position in lower right corner.
+set ruler
 
-" Want a different map leader than \  
+" Want a different map leader than \
 let mapleader = ","
 let g:mapleader = ","
 
-" Ever notice a slight lag after typing the leader key + command? This lowers  
-"the timeout.  
-set timeoutlen=500  
+" Ever notice a slight lag after typing the leader key + command? This lowers
+"the timeout.
+set timeoutlen=500
 
-" Indent stuff  
-set smartindent  
-set autoindent  
+" Indent stuff
+set smartindent
+set autoindent
 
-" Always show the status line  
-set laststatus=2  
+" Always show the status line
+set laststatus=2
 
-" Prefer a slightly higher line height  
-set linespace=3 
+" Prefer a slightly higher line height
+set linespace=3
 
-"Shortcut for editing  vimrc file in a new tab  
-nmap <leader>ev :edit $MYVIMRC<cr>  
+"Shortcut for editing  vimrc file in a new tab
+nmap <leader>ev :edit $MYVIMRC<cr>
 
 " make : commands easier
 nnoremap ; :
 
-" Source the vimrc file after saving it. This way, you don't have to reload Vim to see the changes.  
-if has("autocmd")  
-  augroup myvimrchooks  
-    au!  
-    autocmd bufwritepost .vimrc source ~/.vimrc  
-  augroup END  
-endif  
+" Source the vimrc file after saving it. This way, you don't have to reload Vim to see the changes.
+if has("autocmd")
+  augroup myvimrchooks
+    au!
+    autocmd bufwritepost .vimrc source ~/.vimrc
+  augroup END
+endif
 
-" easier window navigation  
-nmap <C-h> <C-w>h  
-nmap <C-j> <C-w>j  
-nmap <C-k> <C-w>k  
-nmap <C-l> <C-w>l  
+" easier window navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
 
 " tab navigation
 nmap <leader>f :bNext<cr>
@@ -71,7 +72,7 @@ nmap <leader>d :bprevious<cr>
 map <leader>ss :setlocal spell!<cr>
 
 
-""""""""""""" STOLEN FROM JANUS 
+""""""""""""" STOLEN FROM JANUS
 
 " format the entire file
 nmap <leader>fef ggVG=''
@@ -211,3 +212,9 @@ nnoremap <leader>da "=strftime("%B %d, %Y - %I:%M %p")<CR>P
 
 set mouse=a
 let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
+
+nnoremap <leader>dws :%s/\s\+$//e<CR>
+
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
