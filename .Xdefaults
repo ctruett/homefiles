@@ -1,41 +1,17 @@
 URxvt*termName: rxvt-unicode
-! URxvt*font: xft:Consolas:pixelsize=14:antialias=true:hinting=true
-! URxvt*boldFont: xft:DejaVu Sans Mono:pixelsize=14:antialias=true:hinting=true
-! URxvt*font: xft:Dina:pixelsize=14:antialias=false:hinting=false
-! URxvt*boldFont: xft:Dina:pixelsize=14:antialias=false:hinting=false
-! URxvt*font: xft:Ohsnap:pixelsize=13:antialias=false:hinting=false
-! URxvt*boldFont: xft:Ohsnap:pixelsize=13:antialias=false:hinting=false
 URxvt*font: xft:termsyn.icons:pixelsize=13:antialias=false:hinting=false
 URxvt*boldFont: xft:termsyn.icons:pixelsize=13:antialias=false:hinting=false
 
-! terminal colours
-! *foreground:#a0a0a0
-! *background:#1b1d1e
-
-!molokai inspired colors
-! *color0:    #1b1d1e
-! *color8:    #505354
-! *color1:    #f92672
-! *color9:    #ff5995
-! *color2:    #82b414
-! *color10:   #b6e354
-! *color3:    #fd971f
-! *color11:   #feed6c
-! *color4:    #56c2d6
-! *color12:   #8cedff
-! *color5:    #8c54fe
-! *color13:   #9e6ffe
-! *color6:    #465457
-! *color14:   #899ca1
-! *color7:    #ccccc6
-! *color15:   #f8f8f2
-
+*depth: 32
+*perl-ext-common:  matcher
+*urlLauncher:      firefox
+*matcher.button:   1
 URxvt*scrollBar: false
 
-*background: #3a3a3a
+! *background: [50]#000000
+*background: [90]#535050
 *foreground: #dcdccc
 *cursorColor: #aaaaaa
-! *colorUL: #366060
 *underlineColor: #dfaf8f
 *color0: #3f3f3f
 *color1: #cc9393
@@ -53,10 +29,3 @@ URxvt*scrollBar: false
 *color13: #dc8cc3
 *color14: #93e0e3
 *color15: #ffffff
-
-*depth: 32
-*background: [75]#000000
-
-*perl-ext-common:  matcher
-*urlLauncher:      firefox
-*matcher.button:   1
