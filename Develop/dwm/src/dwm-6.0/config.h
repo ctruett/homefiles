@@ -7,8 +7,8 @@ static const char font[]            = "-*-termsyn.icons-medium-r-*--14-*-*-*-*-*
 static const char colors[NUMCOLORS][ColLast][9] = {
 // Dark Colors
 // border foreground background
-{ "#212121", "#aaaaaa", "#121212" }, // 0 = normal
-{ "#6C9E9F", "#FFFFFF", "#121212" }, // 1 = selected
+{ "#212121", "#969191", "#535050" }, // 0 = normal
+{ "#6C9E9F", "#FFFFFF", "#535050" }, // 1 = selected
 { "#212121", "#FFFFFF", "#B98585" }, // 2 = red
 { "#212121", "#FFFFFF", "#759073" }, // 3 = green
 { "#212121", "#FFFFFF", "#C0AE81" }, // 4 = yellow
@@ -18,24 +18,23 @@ static const char colors[NUMCOLORS][ColLast][9] = {
 { "#212121", "#FFFFFF", "#DAD5BC" }, // 8 = grey
 };
 
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "\u00c7", "´", "Î", "ê", "º" };
+static const char *tags[] = { "\u00c7", "´ " };
 
 static const Rule rules[] = {
   /* class      instance    title       tags mask     isfloating   monitor */
-  { NULL      , NULL , NULL        , 0    , True  , -1 } , 
-  { "Firefox" , NULL , NULL        , 1<<1 , True  , -1 } , 
+  // { NULL      , NULL , NULL        , 0    , True  , -1 } , 
+  // { "Firefox" , NULL , NULL        , 1<<0 , False , -1 } , 
   { "URxvt"   , NULL , NULL        , 0    , False , -1 } , 
-  { "URxvt"   , NULL , "pyradio"   , 1<<3 , True  , -1 } , 
-  { "URxvt"   , NULL , "alsamixer" , 1<<3 , True  , -1 } , 
-  { "URxvt"   , NULL , "weechat"   , 1<<4 , False , -1 } , 
-  { "Vlc"     , NULL , NULL        , 1<<2 , False , -1 } , 
-  { "Gbfed"   , NULL , NULL        , 0    , False , -1 } , 
+  // { "URxvt"   , NULL , "pyradio"   , 1<<3 , True  , -1 } , 
+  // { "URxvt"   , NULL , "alsamixer" , 1<<3 , True  , -1 } , 
+  // { "URxvt"   , NULL , "weechat"   , 1<<4 , False , -1 } , 
+  // { "Vlc"     , NULL , NULL        , 1<<2 , False , -1 } , 
 };
 
 /* layout(s) */
@@ -43,11 +42,18 @@ static const float mfact      = 0.55; /* factor of master area size [0.05..0.95]
 static const int nmaster      = 1;    /* number of clients in master area */
 static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
+#include "bstack.c"
+#include "bstackhoriz.c"
+#include "fibonacci.c"
 static const Layout layouts[] = {
   /* symbol     arrange function */
   { "þ",      tile },    /* first entry is default */
   { "ý",      NULL },    /* no layout function means floating behavior */
   { "ÿ",      monocle },
+	{ "ü",      bstack },
+	{ "û",      bstackhoriz },
+ 	{ "ø",      spiral },
+ 	{ "ù",      dwindle },
 };
 
 /* key definitions */
@@ -64,14 +70,16 @@ static const Layout layouts[] = {
 /* commands */
 static const char  *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
 static const char *termcmd[]    = { "urxvt", NULL };
-// static const char *radio[]      = { "urxvt", "-e", "pyradio", NULL };
-// static const char *mixer[]      = { "urxvt", "-e", "alsamixer", NULL };
+static const char *radio[]      = { "urxvt", "-e", "pyradio", NULL };
+static const char *mixer[]      = { "urxvt", "-e", "alsamixer", NULL };
+static const char *chat[]      = { "urxvt", "-e", "weechat-curses", NULL };
 static const char *volumedown[] = { "amixer", "-q", "set", "PCM", "2%-", "unmute", NULL };
 static const char *volumeup[]   = { "amixer", "-q", "set", "PCM", "2%+", "unmute", NULL };
 static const char *mute[]       = { "amixer", "-q", "set", "PCM", "toggle", NULL };
 static const char *vlc[]        = { "vlc-play", NULL };
 static const char *rotatewall[] = { "wallpaper-rotate-new", NULL };
 
+#include "movestack.c"
 static Key keys[] = {
   /* modifier                     key        function        argument */
   { 0, XF86XK_AudioLowerVolume,   spawn,        { .v = volumedown } },
@@ -80,22 +88,28 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_bracketright, spawn,    {.v = rotatewall } },
   { MODKEY,                       XK_v,      spawn,          {.v = vlc } },
   { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-  // { MODKEY,                       XK_r,      spawn,          {.v = radio } },
-  // { MODKEY|ShiftMask,             XK_m,      spawn,          {.v = mixer } },
+  { MODKEY,                       XK_c,      spawn,          {.v = chat } },
+  { MODKEY,                       XK_r,      spawn,          {.v = radio } },
+  { MODKEY,                       XK_a,      spawn,          {.v = mixer } },
   { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-  { MODKEY,                       XK_b,      togglebar,      {0} },
+  // { MODKEY,                       XK_b,      togglebar,      {0} },
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
   { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
   { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
   { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
   { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
   { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
   { MODKEY,                       XK_m,      zoom,           {0} },
   { MODKEY,                       XK_Tab,    view,           {0} },
   { MODKEY,                       XK_q,      killclient,     {0} },
   { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
   { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
   { MODKEY,                       XK_Return, setlayout,      {.v = &layouts[2]} },
+  { MODKEY,                       XK_b,      setlayout,      {.v = &layouts[3]} },
+  { MODKEY|ShiftMask,             XK_b,      setlayout,      {.v = &layouts[4]} },
+  { MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} },
   { MODKEY,                       XK_space,  setlayout,      {0} },
   { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
   { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
