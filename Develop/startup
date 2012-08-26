@@ -2,26 +2,25 @@
 
 startup ()
 {
-  setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win' # Fix keys
-  xgamma -gamma 0.8                                                   # Fix gamma
-  compton -i 0.95 &                                                    # Transparency
-  autocutsel -selection PRIMARY -fork &                               # Combine clipboards
-  # xflux -z 30533                                                      # Load flux
-  ibus-daemon &                                                       # Load japanese input
-   xset +fp /usr/share/fonts/local                                     # Load local fonts
-   xset +fp ~/.fonts                                                   # Load local fonts
-  feh --bg-fill ~/Wallpapers/toys-danboard-wallpaper2.jpg &
-  # feh --bg-tile ~/Wallpapers/simpledesktops.com.png
+setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'   # Fix keys
+xgamma -gamma 0.8                                                     # Fix gamma
+compton -i 0.85 &
+autocutsel -selection PRIMARY -fork &                                 # Combine clipboards
+ibus-daemon &                                                         # Load japanese input
+xset +fp /usr/share/fonts/local                                       # Load local fonts
+xset +fp ~/.fonts                                                     # Load local fonts
+hsetroot -solid "#000000"
+feh --bg-fill ~/Wallpapers/Great\ Details/Beautiful_Cliffs_Stunning_Hd_Wallpaper.jpg &
 
-  sleep 0.25                                                          # Pause, then switch workspaces to activate wallpaper
-  xdotool key Alt+2
-  xdotool key Alt+1
+sleep 0.25                                                            # Pause, then switch workspaces to activate wallpaper
+xdotool key Alt+2
+xdotool key Alt+1
 
-  ~/Develop/dwm-statusbar &
+~/Develop/bar &
 }
 
-  startup
-# Start DWM
+startup
+
 while true; do
-  dwm 2> ~/.dwm.log
+dwm 2> ~/.dwm.log
 done

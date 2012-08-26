@@ -2,18 +2,20 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char font[]            = "-*-termsyn.icons-medium-r-*--14-*-*-*-*-*-*-*";
+// static const char font[]            = "-*-termsyn.icons-medium-r-*--14-*-*-*-*-*-*-*";
+static const char font[]            = "-*-terminus2-medium-r-*-*-12-*-*-*-*-*-*-*";
 #define NUMCOLORS 9 
 static const char colors[NUMCOLORS][ColLast][9] = {
 // Dark Colors
 // border foreground background
-{ "#212121", "#969191", "#535050" }, // 0 = normal
-{ "#6C9E9F", "#FFFFFF", "#535050" }, // 1 = selected
+{ "#212121", "#969191", "#4e4e4e" }, // 0 = normal
+{ "#759073", "#FFFFFF", "#4e4e4e" }, // 1 = selected
 { "#212121", "#FFFFFF", "#B98585" }, // 2 = red
 { "#212121", "#FFFFFF", "#759073" }, // 3 = green
 { "#212121", "#FFFFFF", "#C0AE81" }, // 4 = yellow
+{ "#212121", "#6C9E9F", "#4e4e4e" }, // 5 = blue
 { "#212121", "#FFFFFF", "#6C9E9F" }, // 5 = blue
-{ "#212121", "#FFFFFF", "#8DD5D6" }, // 6 = cyan
+// { "#212121", "#FFFFFF", "#8DD5D6" }, // 6 = cyan
 { "#212121", "#FFFFFF", "#D28DBB" }, // 7 = magenta
 { "#212121", "#FFFFFF", "#DAD5BC" }, // 8 = grey
 };
@@ -24,12 +26,12 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "\u00c7", "´ " };
+static const char *tags[] = { "\u00c7", "\u00C0 " };
 
 static const Rule rules[] = {
   /* class      instance    title       tags mask     isfloating   monitor */
   // { NULL      , NULL , NULL        , 0    , True  , -1 } , 
-  // { "Firefox" , NULL , NULL        , 1<<0 , False , -1 } , 
+  { "Firefox" , NULL , NULL        , 1<<1 , False , -1 } , 
   { "URxvt"   , NULL , NULL        , 0    , False , -1 } , 
   // { "URxvt"   , NULL , "pyradio"   , 1<<3 , True  , -1 } , 
   // { "URxvt"   , NULL , "alsamixer" , 1<<3 , True  , -1 } , 
@@ -47,13 +49,13 @@ static const Bool resizehints = False; /* True means respect size hints in tiled
 #include "fibonacci.c"
 static const Layout layouts[] = {
   /* symbol     arrange function */
-  { "þ",      tile },    /* first entry is default */
-  { "ý",      NULL },    /* no layout function means floating behavior */
-  { "ÿ",      monocle },
-	{ "ü",      bstack },
-	{ "û",      bstackhoriz },
- 	{ "ø",      spiral },
- 	{ "ù",      dwindle },
+  { "\u00C9",      tile },    /* first entry is default */
+  { "\u00CA",      NULL },    /* no layout function means floating behavior */
+  { "\u00CB",      monocle },
+	{ "\u00CC",      bstack },
+	// { "û",      bstackhoriz },
+   // { "ø",      spiral },
+   // { "ù",      dwindle },
 };
 
 /* key definitions */
@@ -108,8 +110,8 @@ static Key keys[] = {
   { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
   { MODKEY,                       XK_Return, setlayout,      {.v = &layouts[2]} },
   { MODKEY,                       XK_b,      setlayout,      {.v = &layouts[3]} },
-  { MODKEY|ShiftMask,             XK_b,      setlayout,      {.v = &layouts[4]} },
-  { MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} },
+  // { MODKEY|ShiftMask,             XK_b,      setlayout,      {.v = &layouts[4]} },
+  // { MODKEY,                       XK_s,      setlayout,      {.v = &layouts[5]} },
   { MODKEY,                       XK_space,  setlayout,      {0} },
   { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
   { MODKEY,                       XK_0,      view,           {.ui = ~0 } },

@@ -1,3 +1,2 @@
 #!/bin/bash
 vlc `file /proc/*/fd/* 2>/dev/null | grep Flash | cut -f1 -d:` &
-xdotool key Alt+3

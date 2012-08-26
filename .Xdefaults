@@ -1,7 +1,8 @@
 URxvt*termName: rxvt-unicode
-URxvt*font: xft:termsyn.icons:pixelsize=13:antialias=false:hinting=false
-URxvt*boldFont: xft:termsyn.icons:pixelsize=13:antialias=false:hinting=false
-
+! URxvt*font: xft:termsyn.icons:pixelsize=13:antialias=false:hinting=false
+! URxvt*boldFont: xft:termsyn.icons:pixelsize=13:antialias=false:hinting=false
+*font: x:-*-terminus2-medium-r-*-*-12-*-*-*-*-*-*-*
+*boldFont: x:-*-terminus2-medium-r-*-*-12-*-*-*-*-*-*-*
 *depth: 32
 *perl-ext-common:  matcher
 *urlLauncher:      firefox
@@ -9,7 +10,8 @@ URxvt*boldFont: xft:termsyn.icons:pixelsize=13:antialias=false:hinting=false
 URxvt*scrollBar: false
 
 ! *background: [50]#000000
-*background: [90]#535050
+*background: [85]#4e4e4e
+! *background: #4e4e4e
 *foreground: #dcdccc
 *cursorColor: #aaaaaa
 *underlineColor: #dfaf8f
