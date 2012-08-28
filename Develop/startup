@@ -2,16 +2,16 @@
 
 startup ()
 {
+~/Develop/wallpaper-rotate &
 setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'   # Fix keys
 unclutter &
-xgamma -gamma 0.65 &                                                    # Fix gamma
-compton -i 0.85 &
+xgamma -gamma 0.9 &                                                    # Fix gamma
+# compton -i 0.85 &
 autocutsel -selection PRIMARY -fork &                                 # Combine clipboards
 ibus-daemon &                                                         # Load japanese input
 xset +fp /usr/share/fonts/local                                       # Load local fonts
 xset +fp ~/.fonts                                                     # Load local fonts
-hsetroot -solid "#000000"
-~/Develop/wallpaper-rotate &
+~/Develop/connect-wifi &
 
 sleep 0.25                                                            # Pause, then switch workspaces to activate wallpaper
 xdotool key Alt+2

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+check=`cat /proc/net/wireless | grep eth | sed -e 's/:.*$//g'`
+sudo iwconfig $check essid 'Wesley'
+sudo dhcpcd
