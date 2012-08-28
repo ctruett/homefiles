@@ -2,26 +2,26 @@
 
 startup ()
 {
-~/Develop/wallpaper-rotate &
-setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'   # Fix keys
-unclutter &
-xgamma -gamma 0.9 &                                                    # Fix gamma
-# compton -i 0.85 &
-autocutsel -selection PRIMARY -fork &                                 # Combine clipboards
-ibus-daemon &                                                         # Load japanese input
-xset +fp /usr/share/fonts/local                                       # Load local fonts
-xset +fp ~/.fonts                                                     # Load local fonts
-~/Develop/connect-wifi &
+  setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'   # Fix keys
+  unclutter &
+  xgamma -gamma 0.8 &                                                    # Fix gamma
+  # compton -i 0.85 &
+  autocutsel -selection PRIMARY -fork &                                 # Combine clipboards
+  ibus-daemon &                                                         # Load japanese input
+  xset +fp /usr/share/fonts/local                                       # Load local fonts
+  xset +fp ~/.fonts                                                     # Load local fonts
+  ~/Develop/connect-wifi &
+  ~/Develop/wallpaper-rotate &
 
-sleep 0.25                                                            # Pause, then switch workspaces to activate wallpaper
-xdotool key Alt+2
-xdotool key Alt+1
+  sleep 0.25                                                            # Pause, then switch workspaces to activate wallpaper
+  xdotool key Alt+2
+  xdotool key Alt+1
 
-~/Develop/bar &
+  ~/Develop/bar &
 }
 
 startup
 
 while true; do
-dwm 2> ~/.dwm.log
+ dwm
 done

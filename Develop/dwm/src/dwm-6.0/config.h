@@ -7,15 +7,16 @@ static const char font[]            = "-*-terminus2-medium-r-*-*-12-*-*-*-*-*-*-
 static const char colors[NUMCOLORS][ColLast][9] = {
   // Dark Colors
   // border foreground background
-  { "#4e4e4e", "#969191", "#4e4e4e" }, // 0 = normal
+  { "#4e4e4e", "#666666", "#4e4e4e" }, // 0 = normal
   { "#759073", "#FFFFFF", "#4e4e4e" }, // 1 = selected
-  { "#212121", "#FFFFFF", "#B98585" }, // 2 = red
+  { "#212121", "#B98585", "#4e4e4e" }, // 2 = red
   { "#212121", "#FFFFFF", "#759073" }, // 3 = green
-  { "#212121", "#FFFFFF", "#C0AE81" }, // 4 = yellow
+  { "#212121", "#6C9E9F", "#4e4e4e" },
+  // { "#212121", "#C0AE81", "#4e4e4e" }, // 4 = yellow
   { "#212121", "#6C9E9F", "#4e4e4e" }, // 5 = blue
   { "#212121", "#FFFFFF", "#6C9E9F" }, // 5 = blue
   { "#212121", "#FFFFFF", "#D28DBB" }, // 7 = magenta
-  { "#212121", "#FFFFFF", "#DAD5BC" }, // 8 = grey
+  { "#212121", "#777777", "#4e4e4e" }, // 8 = grey
 };
 
 static const unsigned int borderpx  = 2;        /* border pixel of windows */

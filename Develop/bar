@@ -24,7 +24,7 @@ print_mem_used() {
 
 print_volume() {
   volume="$(amixer get PCM | tail -n1 | sed -r 's/.*\[(.*)%\].*/\1/')"
-  echo -ne "Vol: ${volume}% "
+  echo -ne "\x09Vol: ${volume}% "
 }
 
 print_datetime() {
