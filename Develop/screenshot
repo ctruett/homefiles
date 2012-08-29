@@ -1,0 +1,8 @@
+#!/bin/bash
+
+cd ~
+mkdir tmp
+cd tmp
+scrot -d 5 -c -t 20 screen.png
+imgur screen.png screen_thumb.png
+
