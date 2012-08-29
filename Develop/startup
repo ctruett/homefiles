@@ -23,8 +23,10 @@ startup ()
 
 programs ()
 {
+  urxvtc &
   urxvtc -e pyradio &
   urxvtc -e weechat-curses &
+  urxvtc -e htop &
   urxvtc -e alsamixer &
   firefox &
 }
@@ -33,5 +35,5 @@ startup
 programs
 
 while true; do
- dwm
+  dwm
 done
