@@ -69,9 +69,9 @@ static const Layout layouts[] = {
 /* commands */
 static const char  *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
 static const char *firefox[]    = { "firefox", NULL };
-static const char *termcmd[]    = { "urxvt", NULL };
-static const char *radio[]      = { "urxvt", "-e", "pyradio", NULL };
-static const char *mixer[]      = { "urxvt", "-e", "alsamixer", NULL };
+static const char *termcmd[]    = { "urxvtc", NULL };
+static const char *radio[]      = { "urxvtc", "-e", "pyradio", NULL };
+static const char *mixer[]      = { "urxvtc", "-e", "alsamixer", NULL };
 static const char *chat[]      = { "urxvt", "-e", "weechat-curses", NULL };
 static const char *volumedown[] = { "amixer", "-q", "set", "PCM", "2%-", "unmute", NULL };
 static const char *volumeup[]   = { "amixer", "-q", "set", "PCM", "2%+", "unmute", NULL };

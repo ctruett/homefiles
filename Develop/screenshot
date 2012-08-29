@@ -1,8 +1,42 @@
 #!/bin/bash
+# Screenshot tool by Christopher Truett [chris.truett@gmail.com] "http://github.com/ctruett"
+# Upload function from http://argandgahandapandpa.wordpress.com/
 
-cd ~
-mkdir tmp
-cd tmp
-scrot -d 5 -c -t 20 screen.png
-imgur screen.png screen_thumb.png
+mkdir -p ~/screentmp/
+cd ~/screentmp/
+scrot -d 3 -c -t 20 screen.png
 
+upload() {
+  if [ -n "$1" ]; then
+    filename="$1"
+  else
+    filename=$(tempfile);
+    cat > $filename;
+  fi;
+
+  curl -# --form "nickname=$(hostname)" --form \
+    "image=@$filename;type=$(file --brief -L --mime-type $filename)"\
+    --form "disclaimer_agree=Y" --form "mode=add" --form "Submit=Submit"\
+    http://imagebin.org/index.php -w '%{redirect_url}\n'
+}
+
+echo
+echo "Screenshot successful. Now uploading images."
+echo
+
+full=`upload screen.png | sed -e "s^http://imagebin.org/^^g"`
+tiny=`upload screen-thumb.png | sed -e "s^http://imagebin.org/^^g"`
+
+echo
+echo "BBCode:"
+echo
+echo "[url=http://imagebin.org/index.php?mode=image&id=$full]"
+echo "[img]http://imagebin.org/index.php?mode=image&id=$tiny[/img]"
+echo "[/url]"
+echo
+echo "BBCode was also copied to your clipboard."
+echo
+
+echo "[url=http://imagebin.org/index.php?mode=image&id=$full][img]http://imagebin.org/index.php?mode=image&id=$tiny[/img][/url]" | xclip -sel clip
+
+rm -rf ~/screentmp

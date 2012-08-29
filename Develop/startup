@@ -3,6 +3,7 @@
 startup ()
 {
   setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'   # Fix keys
+  urxvtd &
   unclutter &
   xgamma -gamma 0.8 &                                                    # Fix gamma
   # compton -i 0.85 &

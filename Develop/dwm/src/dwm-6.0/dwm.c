@@ -103,7 +103,7 @@ typedef struct {
   unsigned long colors[MAXCOLORS][ColLast];
   Drawable drawable;
   GC gc;
-	GC invert_gc;
+  GC invert_gc;
   struct {
     int ascent;
     int descent;
@@ -163,6 +163,7 @@ static Bool applysizehints(Client *c, int *x, int *y, int *w, int *h, Bool inter
 static void arrange(Monitor *m);
 static void arrangemon(Monitor *m);
 static void attach(Client *c);
+static void attachaside(Client *c);
 static void attachstack(Client *c);
 static void buttonpress(XEvent *e);
 static void checkotherwm(void);
@@ -429,6 +430,17 @@ void
 attach(Client *c) {
   c->next = c->mon->clients;
   c->mon->clients = c;
+}
+
+void
+attachaside(Client *c) {
+  Client *at = nexttiled(c->mon->clients);;
+  if(c->mon->sel == NULL || c->mon->sel->isfloating || !at) {
+    attach(c);
+    return;
+  }
+  c->next = at->next;
+  at->next = c;
 }
 
 void
@@ -763,7 +775,7 @@ drawbar(Monitor *m) {
   dc.x = 0;
   for(i = 0; i < LENGTH(tags); i++) {
     dc.w = TEXTW(tags[i]);
-      col = dc.colors[ (m->tagset[m->seltags] & 1 << i) ?  1 : (urg & 1 << i ? 2:(occ & 1 << i ? 4:0)) ];
+    col = dc.colors[ (m->tagset[m->seltags] & 1 << i) ?  1 : (urg & 1 << i ? 2:(occ & 1 << i ? 4:0)) ];
     drawtext(tags[i], col, True);
     dc.x += dc.w;
   }
@@ -805,9 +817,9 @@ drawbars(void) {
 
 void 
 drawoutline(int x, int y, int w, int h, int bw) {
-	XDrawRectangle(dpy, root, dc.invert_gc,
-		x-bw, y-bw,
-		w+2*bw-1, h+2*bw-1);
+  XDrawRectangle(dpy, root, dc.invert_gc,
+      x-bw, y-bw,
+      w+2*bw-1, h+2*bw-1);
 }
 
 void
@@ -1216,7 +1228,7 @@ manage(Window w, XWindowAttributes *wa) {
     c->isfloating = c->oldstate = trans != None || c->isfixed;
   if(c->isfloating)
     XRaiseWindow(dpy, c->win);
-  attach(c);
+	attachaside(c);
   attachstack(c);
   XMoveResizeWindow(dpy, c->win, c->x + 2 * sw, c->y, c->w, c->h); /* some windows require this */
   setclientstate(c, NormalState);
@@ -1291,7 +1303,7 @@ motionnotify(XEvent *e) {
 void
 movemouse(const Arg *arg) {
   int x, y, ocx, ocy, nx, ny;
-	Bool first;
+  Bool first;
   Client *c;
   Monitor *m;
   XEvent ev;
@@ -1306,7 +1318,7 @@ movemouse(const Arg *arg) {
     return;
   if(!getrootptr(&x, &y))
     return;
-	first=True;
+  first=True;
   do {
     XMaskEvent(dpy, MOUSEMASK|ExposureMask|SubstructureRedirectMask, &ev);
     switch(ev.type) {
@@ -1345,11 +1357,11 @@ movemouse(const Arg *arg) {
         break;
     }
   } while(ev.type != ButtonRelease);
-	if (!first) {
-		drawoutline(nx, ny, c->w, c->h, c->bw); /* clear */
-		XUngrabServer(dpy);
-		if (nx != ocx || ny != ocy) resize(c, nx, ny, c->w, c->h, True);
-	}
+  if (!first) {
+    drawoutline(nx, ny, c->w, c->h, c->bw); /* clear */
+    XUngrabServer(dpy);
+    if (nx != ocx || ny != ocy) resize(c, nx, ny, c->w, c->h, True);
+  }
   XUngrabPointer(dpy, CurrentTime);
   if((m = recttomon(c->x, c->y, c->w, c->h)) != selmon) {
     sendmon(c, m);
@@ -1448,9 +1460,9 @@ resizeclient(Client *c, int x, int y, int w, int h) {
 
 void
 resizemouse(const Arg *arg) {
-	int ocx, ocy, ocw, och;
+  int ocx, ocy, ocw, och;
   int nw, nh;
-	Bool first;
+  Bool first;
   Client *c;
   Monitor *m;
   XEvent ev;
@@ -1460,13 +1472,13 @@ resizemouse(const Arg *arg) {
   restack(selmon);
   ocx = c->x;
   ocy = c->y;
-	ocw = nw = c->w;
-	och = nh = c->h;
+  ocw = nw = c->w;
+  och = nh = c->h;
   if(XGrabPointer(dpy, root, False, MOUSEMASK, GrabModeAsync, GrabModeAsync,
         None, cursor[CurResize], CurrentTime) != GrabSuccess)
     return;
   XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w + c->bw - 1, c->h + c->bw - 1);
-	first=True;
+  first=True;
   do {
     XMaskEvent(dpy, MOUSEMASK|ExposureMask|SubstructureRedirectMask, &ev);
     switch(ev.type) {
@@ -1476,10 +1488,10 @@ resizemouse(const Arg *arg) {
         handler[ev.type](&ev);
         break;
       case MotionNotify:
-			if (!first) {
-				drawoutline(c->x, c->y, nw, nh, c->bw); /* clear */
-				XUngrabServer(dpy);
-			}
+        if (!first) {
+          drawoutline(c->x, c->y, nw, nh, c->bw); /* clear */
+          XUngrabServer(dpy);
+        }
         nw = MAX(ev.xmotion.x - ocx - 2 * c->bw + 1, 1);
         nh = MAX(ev.xmotion.y - ocy - 2 * c->bw + 1, 1);
         if(c->mon->wx + nw >= selmon->wx && c->mon->wx + nw <= selmon->wx + selmon->ww
@@ -1498,11 +1510,11 @@ resizemouse(const Arg *arg) {
         break;
     }
   } while(ev.type != ButtonRelease);
-	if (!first) {
-		drawoutline(c->x, c->y, nw, nh, c->bw); /* clear */
-		XUngrabServer(dpy);
-		if (nw != ocw || nh != och) resize(c, c->x, c->y, nw, nh, True);
-	}
+  if (!first) {
+    drawoutline(c->x, c->y, nw, nh, c->bw); /* clear */
+    XUngrabServer(dpy);
+    if (nw != ocw || nh != och) resize(c, c->x, c->y, nw, nh, True);
+  }
   XWarpPointer(dpy, None, c->win, 0, 0, 0, 0, c->w + c->bw - 1, c->h + c->bw - 1);
   XUngrabPointer(dpy, CurrentTime);
   while(XCheckMaskEvent(dpy, EnterWindowMask, &ev));
@@ -1688,7 +1700,7 @@ setmfact(const Arg *arg) {
 void
 setup(void) {
   XSetWindowAttributes wa;
-	XGCValues gv;
+  XGCValues gv;
 
   /* clean up any zombies immediately */
   sigchld(0);
@@ -1729,10 +1741,10 @@ setup(void) {
   if(!dc.font.set)
     XSetFont(dpy, dc.gc, dc.font.xfont->fid);
 
-	gv.function = GXinvert;
-	gv.subwindow_mode = IncludeInferiors;
-	gv.line_width = 1;  /* opt_bw */
-	dc.invert_gc = XCreateGC(dpy, root, GCFunction | GCSubwindowMode | GCLineWidth, &gv);
+  gv.function = GXinvert;
+  gv.subwindow_mode = IncludeInferiors;
+  gv.line_width = 1;  /* opt_bw */
+  dc.invert_gc = XCreateGC(dpy, root, GCFunction | GCSubwindowMode | GCLineWidth, &gv);
 
   /* init bars */
   updatebars();
