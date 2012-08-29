@@ -1,9 +1,9 @@
-#include <X11/XF86keysym.h> 
+#include <X11/XF86keysym.h>
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
 static const char font[]            = "-*-terminus2-medium-r-*-*-12-*-*-*-*-*-*-*";
-#define NUMCOLORS 9 
+#define NUMCOLORS 9
 static const char colors[NUMCOLORS][ColLast][9] = {
   // Dark Colors
   // border foreground background
@@ -25,22 +25,22 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "\u00c7", "\u00C0", "\u00C1" , "\u00C8", "\u00D4 " };
+static const char *tags[] = { "\u00c2", "\u00C0", "\u00C1" , "\u00C8", "\u00D4 " };
 
 static const Rule rules[] = {
   /* class      instance    title       tags mask     isfloating   monitor */
-  // { NULL      , NULL , NULL        , 0    , True  , -1 } , 
-  { "URxvt"   , NULL        , NULL , 0    , False , -1 } , 
-  { "URxvt"    , NULL        , "weechat"   , 1<<2 , False , -1 } , 
-  { "URxvt"    , NULL        , "pyradio"   , 1<<4 , False , -1 } , 
-  { "URxvt"    , NULL        , "alsamixer" , 1<<4 , False , -1 } , 
-  { "Vlc"      , NULL        , NULL        , 1<<3 , False , -1 } , 
-  { "Firefox" , "Browser"   , NULL , 0    , True  , -1 } , 
-  { "Firefox" , "Dialog"    , NULL , 0    , True  , -1 } , 
-  { "Firefox" , "Places"    , NULL , 0    , True  , -1 } , 
-  { "Firefox" , "Navigator" , NULL , 1<<1 , False , -1 } , 
-  { "slgui"   , NULL        , NULL , 1<<2 , False , -1 } , 
-  { "Qjackctl", NULL        , NULL , 1<<3 , True , -1 } , 
+  // { NULL    , NULL        , NULL        , 0    , True  , -1 } ,
+  { "URxvt "   , NULL        , NULL        , 0    , False , -1 } ,
+  { "URxvt"    , NULL        , "weechat"   , 1<<2 , False , -1 } ,
+  { "URxvt"    , NULL        , "pyradio"   , 1<<4 , False , -1 } ,
+  { "URxvt"    , NULL        , "alsamixer" , 1<<4 , False , -1 } ,
+  { "Vlc"      , NULL        , NULL        , 1<<3 , False , -1 } ,
+  { "Firefox"  , "Browser"   , NULL        , 0    , True  , -1 } ,
+  { "Firefox"  , "Dialog"    , NULL        , 0    , True  , -1 } ,
+  { "Firefox"  , "Places"    , NULL        , 0    , True  , -1 } ,
+  { "Firefox"  , "Navigator" , NULL        , 1<<1 , False , -1 } ,
+  { "slgui"    , NULL        , NULL        , 1<<2 , False , -1 } ,
+  { "Qjackctl" , NULL        , NULL        , 1<<3 , True  , -1 } ,
 };
 
 /* layout(s) */
@@ -50,6 +50,7 @@ static const Bool resizehints = False; /* True means respect size hints in tiled
 
 #include "bstack.c"
 #include "gaplessgrid.c"
+#include "fibonacci.c"
 static const Layout layouts[] = {
   /* symbol     arrange function */
   { "\u00C9",      tile },    /* first entry is default */
@@ -57,6 +58,7 @@ static const Layout layouts[] = {
   { "\u00CB",      monocle },
   { "\u00CC",      bstack },
   { "\u00CD",      gaplessgrid },
+  { "\u00CD",      fibonacci }
 };
 
 /* key definitions */
@@ -83,25 +85,25 @@ static const char *rotatewall[] = { "wallpaper-rotate-new", NULL };
 static Key keys[] = {
   /* modifier                     key        function        argument */
   { 0, XF86XK_AudioLowerVolume,   spawn,        { .v = volumedown } },
-  { 0, XF86XK_AudioRaiseVolume,   spawn,        { .v = volumeup } }, 
-  { 0, XF86XK_AudioMute,          spawn,        { .v = mute } }, 
+  { 0, XF86XK_AudioRaiseVolume,   spawn,        { .v = volumeup } },
+  { 0, XF86XK_AudioMute,          spawn,        { .v = mute } },
   { MODKEY|ShiftMask,             XK_bracketright, spawn,    {.v = rotatewall } },
   { MODKEY,                       XK_v,      spawn,          {.v = vlc } },
   { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
   { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
   { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-  { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-  { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+  // { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
+  // { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
   { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
   { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
   { MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
   { MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
   { MODKEY,                       XK_m,      zoom,           {0} },
   { MODKEY,                       XK_Tab,    view,           {0} },
-  { MODKEY,                       XK_q,      killclient,     {0} },
+  { MODKEY,                       XK_c,      killclient,     {0} },
   { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-  { MODKEY|ShiftMask,             XK_f,      setlayout,      {.v = &layouts[1]} },
+  { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
   { MODKEY,                       XK_Return, setlayout,      {.v = &layouts[2]} },
   { MODKEY,                       XK_b,      setlayout,      {.v = &layouts[3]} },
   { MODKEY,                       XK_g,      setlayout,      {.v = &layouts[4]} },
@@ -113,12 +115,12 @@ static Key keys[] = {
   { MODKEY,                       XK_period, focusmon,       {.i = +1 } },
   { MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
   { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
-  TAGKEYS(                        XK_1,                      0)
-    TAGKEYS(                        XK_2,                      1)
-    TAGKEYS(                        XK_c,                      2)
-    TAGKEYS(                        XK_v,                      3)
-    TAGKEYS(                        XK_r,                      4)
-    TAGKEYS(                        XK_6,                      5)
+    TAGKEYS(                        XK_q,                      0)
+    TAGKEYS(                        XK_w,                      1)
+    TAGKEYS(                        XK_e,                      2)
+    TAGKEYS(                        XK_u,                      3)
+    TAGKEYS(                        XK_i,                      4)
+    TAGKEYS(                        XK_o,                      5)
     TAGKEYS(                        XK_7,                      6)
     TAGKEYS(                        XK_8,                      7)
     TAGKEYS(                        XK_9,                      8)

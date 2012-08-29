@@ -13,18 +13,21 @@ export QT_IM_MODULE=ibus
 
 alias ls='ls --color=auto'
 alias mkdwm='makepkg -efi --skipinteg'
-alias play='~/Develop/vlc-play'
-alias lamp='sudo lampp start'
-alias nolamp='sudo lampp stop'
-alias newlamp='sudo lampp restart'
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias wifi='sudo wifi-menu eth0'
-# git aliases
-alias gp='git push origin master'
-alias gc='git commit -m '
-alias ga='git add '
-alias grm='git rm -f '
-# Yaourt aliases
+
+# lamp
+alias golamp='sudo lampp start'
+alias nolamp='sudo lampp stop'
+alias relamp='sudo lampp restart'
+
+# git
+alias push='git push origin master'
+alias commit='git commit -m '
+alias add='git add '
+alias gitrm='git rm -f '
+
+# yaourt
 alias get='yaourt -S '
 alias look='yaourt -Ss '
 alias remove='yaourt -R '
