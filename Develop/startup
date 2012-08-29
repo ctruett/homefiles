@@ -11,7 +11,7 @@ startup ()
   ibus-daemon &                                                         # Load japanese input
   xset +fp /usr/share/fonts/local                                       # Load local fonts
   xset +fp ~/.fonts                                                     # Load local fonts
-  ~/Develop/connect-wifi &
+  # ~/Develop/connect-wifi &
   ~/Develop/wallpaper-rotate &
 
   sleep 0.25                                                            # Pause, then switch workspaces to activate wallpaper
@@ -21,7 +21,16 @@ startup ()
   ~/Develop/bar &
 }
 
+programs ()
+{
+  urxvtc -e pyradio &
+  urxvtc -e weechat-curses &
+  urxvtc -e alsamixer &
+  firefox &
+}
+
 startup
+programs
 
 while true; do
  dwm

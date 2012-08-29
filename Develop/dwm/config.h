@@ -25,12 +25,16 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "\u00c7", "\u00C0", "\u00CE " };
+static const char *tags[] = { "\u00c7", "\u00C0", "\u00C1" , "\u00C8", "\u00D4 " };
 
 static const Rule rules[] = {
   /* class      instance    title       tags mask     isfloating   monitor */
   // { NULL      , NULL , NULL        , 0    , True  , -1 } , 
   { "URxvt"   , NULL        , NULL , 0    , False , -1 } , 
+  { "URxvt"    , NULL        , "weechat"   , 1<<2 , False , -1 } , 
+  { "URxvt"    , NULL        , "pyradio"   , 1<<4 , False , -1 } , 
+  { "URxvt"    , NULL        , "alsamixer" , 1<<4 , False , -1 } , 
+  { "Vlc"      , NULL        , NULL        , 1<<3 , False , -1 } , 
   { "Firefox" , "Browser"   , NULL , 0    , True  , -1 } , 
   { "Firefox" , "Dialog"    , NULL , 0    , True  , -1 } , 
   { "Firefox" , "Places"    , NULL , 0    , True  , -1 } , 
@@ -45,34 +49,30 @@ static const int nmaster      = 1;    /* number of clients in master area */
 static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
 #include "bstack.c"
-// #include "grid.c"
+#include "gaplessgrid.c"
 static const Layout layouts[] = {
   /* symbol     arrange function */
   { "\u00C9",      tile },    /* first entry is default */
   { "\u00CA",      NULL },    /* no layout function means floating behavior */
   { "\u00CB",      monocle },
   { "\u00CC",      bstack },
-	// { "\u00CD",      grid },
+  { "\u00CD",      gaplessgrid },
 };
 
 /* key definitions */
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
-{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+	{ MODKEY,                       KEY,      toggleview,     {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask,           KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
 static const char  *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
-static const char *firefox[]    = { "firefox", NULL };
 static const char *termcmd[]    = { "urxvtc", NULL };
-static const char *radio[]      = { "urxvtc", "-e", "pyradio", NULL };
-static const char *mixer[]      = { "urxvtc", "-e", "alsamixer", NULL };
-static const char *chat[]      = { "urxvt", "-e", "weechat-curses", NULL };
 static const char *volumedown[] = { "amixer", "-q", "set", "PCM", "2%-", "unmute", NULL };
 static const char *volumeup[]   = { "amixer", "-q", "set", "PCM", "2%+", "unmute", NULL };
 static const char *mute[]       = { "amixer", "-q", "set", "PCM", "toggle", NULL };
@@ -88,12 +88,7 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_bracketright, spawn,    {.v = rotatewall } },
   { MODKEY,                       XK_v,      spawn,          {.v = vlc } },
   { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
-  { MODKEY,                       XK_c,      spawn,          {.v = chat } },
-  { MODKEY,                       XK_r,      spawn,          {.v = radio } },
-  { MODKEY,                       XK_f,      spawn,          {.v = firefox } },
-  { MODKEY,                       XK_a,      spawn,          {.v = mixer } },
   { MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
-  // { MODKEY,                       XK_b,      togglebar,      {0} },
   { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
   { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
   { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
@@ -120,9 +115,9 @@ static Key keys[] = {
   { MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
   TAGKEYS(                        XK_1,                      0)
     TAGKEYS(                        XK_2,                      1)
-    TAGKEYS(                        XK_3,                      2)
-    TAGKEYS(                        XK_4,                      3)
-    TAGKEYS(                        XK_5,                      4)
+    TAGKEYS(                        XK_c,                      2)
+    TAGKEYS(                        XK_v,                      3)
+    TAGKEYS(                        XK_r,                      4)
     TAGKEYS(                        XK_6,                      5)
     TAGKEYS(                        XK_7,                      6)
     TAGKEYS(                        XK_8,                      7)

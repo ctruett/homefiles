@@ -4,7 +4,7 @@
 
 mkdir -p ~/screentmp/
 cd ~/screentmp/
-scrot -d 3 -c -t 20 screen.png
+scrot -d 3 -c -t 10 screen.png
 
 upload() {
   if [ -n "$1" ]; then
