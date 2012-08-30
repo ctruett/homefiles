@@ -23,9 +23,6 @@ alias golamp='sudo lampp start'
 alias nolamp='sudo lampp stop'
 alias relamp='sudo lampp restart'
 
-# git
-alias push='git push origin master'
-
 # yaourt
 alias get='yaourt -S '
 alias look='yaourt -Ss '
