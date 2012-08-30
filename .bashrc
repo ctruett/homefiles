@@ -11,6 +11,8 @@ export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
+alias cls="clear"
+
 alias ls='ls --color=auto'
 alias mkdwm='makepkg -efi --skipinteg'
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
@@ -23,14 +25,13 @@ alias relamp='sudo lampp restart'
 
 # git
 alias push='git push origin master'
-alias commit='git commit -m '
-alias add='git add '
-alias gitrm='git rm -f '
 
 # yaourt
 alias get='yaourt -S '
 alias look='yaourt -Ss '
 alias remove='yaourt -R '
 alias cleandeps='sudo pacman -Rns $(pacman -Qqtd)'
+
+alias yt="youtube-viewer "
 
 PS1='[\W] '
