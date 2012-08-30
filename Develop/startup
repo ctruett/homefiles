@@ -3,7 +3,6 @@
 startup ()
 {
   setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'   # Fix keys
-  urxvtd &
   unclutter &
   xgamma -gamma 0.8 &                                                    # Fix gamma
   # compton -i 0.85 &
@@ -23,12 +22,9 @@ startup ()
 
 programs ()
 {
-  urxvtc &
-  urxvtc -e pyradio &
-  urxvtc -e weechat-curses &
-  urxvtc -e htop &
-  urxvtc -e alsamixer &
-  firefox &
+  xterm &
+  xterm -e pyradio &
+  xterm -e weechat-curses &
 }
 
 startup

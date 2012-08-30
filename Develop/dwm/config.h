@@ -25,7 +25,7 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "\u00c2", "\u00C0", "\u00C1" , "\u00C8", "\u00CE", "\u00D4 " };
+static const char *tags[] = { "\u00c2", "\u00C0", "\u00C1" , "\u00C8", "\u00CE " };
 
 static const Rule rules[] = {
   /* class      instance    title       tags mask     isfloating   monitor */
@@ -33,9 +33,9 @@ static const Rule rules[] = {
   { "URxvt "   , NULL        , "chris@arch:~" , 1<<0 , False , -1 } ,
   { "URxvt"    , NULL        , "weechat"      , 1<<2 , False , -1 } ,
   { "URxvt"    , NULL        , "weechat"      , 1<<2 , False , -1 } ,
-  { "URxvt"    , NULL        , "htop"         , 1<<5 , False , -1 } ,
+  // { "URxvt"    , NULL        , "htop"         , 1<<5 , False , -1 } ,
   { "URxvt"    , NULL        , "pyradio"      , 1<<4 , False , -1 } ,
-  { "URxvt"    , NULL        , "alsamixer"    , 1<<5 , False , -1 } ,
+  // { "URxvt"    , NULL        , "alsamixer"    , 1<<5 , False , -1 } ,
   { "Vlc"      , NULL        , NULL           , 1<<3 , False , -1 } ,
   { "Firefox"  , "Browser"   , NULL           , 0    , True  , -1 } ,
   { "Firefox"  , "Dialog"    , NULL           , 0    , True  , -1 } ,
@@ -76,7 +76,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static const char  *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
-static const char *termcmd[]    = { "urxvtc", NULL };
+static const char *termcmd[]    = { "xterm", NULL };
 static const char *volumedown[] = { "amixer", "-q", "set", "PCM", "2%-", "unmute", NULL };
 static const char *volumeup[]   = { "amixer", "-q", "set", "PCM", "2%+", "unmute", NULL };
 static const char *mute[]       = { "amixer", "-q", "set", "PCM", "toggle", NULL };
@@ -120,9 +120,9 @@ static Key keys[] = {
   { MODKEY|ShiftMask,  XK_period,                tagmon,          {.i = +1 } },
     TAGKEYS(                        XK_1,  0)
     TAGKEYS(                        XK_2,  1)
-    TAGKEYS(                        XK_3,  2)
+    TAGKEYS(                        XK_c,  2)
     TAGKEYS(                        XK_v,  3)
-    TAGKEYS(                        XK_m,  4)
+    TAGKEYS(                        XK_r,  4)
     TAGKEYS(                        XK_c,  5)
     TAGKEYS(                        XK_7,  6)
     TAGKEYS(                        XK_8,  7)
