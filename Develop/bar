@@ -29,7 +29,7 @@ print_volume() {
 
 print_datetime() {
   datetime="$(date "+%a %b %d - %I:%M%p")"
-  echo -ne "\x06Ü\x07 ${datetime} "
+  echo -ne "\x05 ${datetime} "
 }
 
 # network (see: http://dzen.geekmode.org/dwiki/doku.php?id=dzen:network-meter)
@@ -60,7 +60,7 @@ while true; do
 
   # Pipe to status bar, not indented due to printing extra spaces/tabs
   # xsetroot -name "$(print_song_info) \
-  xsetroot -name "$(print_volume)$(print_datetime) "
+  xsetroot -name "$(print_datetime) "
 
 
   # reset old rates

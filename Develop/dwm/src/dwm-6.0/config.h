@@ -3,20 +3,15 @@
 
 /* appearance */
 static const char font[]            = "-*-terminus2-medium-r-*-*-12-*-*-*-*-*-*-*";
-#define NUMCOLORS 9
+#define NUMCOLORS 5
 static const char colors[NUMCOLORS][ColLast][9] = {
   // Dark Colors
   // border foreground background
   { "#444444", "#444444", "#000000" }, // 0 = normal
-  { "#ff0000", "#FFFFFF", "#000000" }, // 1 = selected
-  { "#212121", "#ff0000", "#000000" }, // 2 = red
-  { "#212121", "#FFFFFF", "#759073" }, // 3 = green
-  { "#212121", "#ff0000", "#000000" },
-  // { "#212121", "#C0AE81", "#000000" }, // 4 = yellow
-  { "#212121", "#666666", "#000000" }, // 5 = blue
-  { "#212121", "#FFFFFF", "#666666" }, // 5 = blue
-  { "#212121", "#FFFFFF", "#D28DBB" }, // 7 = magenta
-  { "#212121", "#777777", "#000000" }, // 8 = grey
+  { "#ff0000", "#ff0000", "#000000" }, // 1 = selected
+  { "#212121", "#ffffff", "#000000" }, // 2 = red
+  { "#000000", "#000000", "#000000" }, // <| Color
+  { "#000000", "#777777", "#000000" }, // [ DATE ] color
 };
 
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
