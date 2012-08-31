@@ -3,6 +3,7 @@
 # Upload function from http://argandgahandapandpa.wordpress.com/
 clear
 tmp=$(mktemp --suffix=".png")
+thumb="$(basename $tmp .png)-thumb.png"
 
 upload() {
   if [ -n "$1" ]; then
@@ -12,7 +13,7 @@ upload() {
     cat > $filename;
   fi;
 
-  curl -# --form "nickname=$(hostname)" --form \
+  curl -s --form "nickname=$(hostname)" --form \
     "image=@$filename;type=$(file --brief -L --mime-type $filename)"\
     --form "disclaimer_agree=Y" --form "mode=add" --form "Submit=Submit"\
     http://imagebin.org/index.php -w '%{redirect_url}\n'
@@ -25,31 +26,18 @@ while getopts ":bu" opt; do
   case $opt in
     b)
       scrot -t 10 $tmp
-      echo "
-      > BB Code mode.
-      > "
       full=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
-      tiny=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
-      echo "
-      > The following BBCode was copied to your clipboard:
-      >
-      > [url=http://imagebin.org/index.php?mode=image&id=$full]
-      > [img]http://imagebin.org/index.php?mode=image&id=$tiny[/img]
-      > [/url]
-      > "
+      tiny=$(upload "$thumb" | sed -e "s^http://imagebin.org/^^g")
+      echo "The BBCode was copied to your clipboard."
       echo "[url=http://imagebin.org/index.php?mode=image&id=$full][img]http://imagebin.org/index.php?mode=image&id=$tiny[/img][/url]" | tr -d '\n' | xclip
       ;;
     u) 
       scrot $tmp
-      echo "
-      > URL mode.
-      > "
       full=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
-      echo "
-      > The following url was copied to your clipboard:
-      > http://imagebin.org/index.php?mode=image&id=$full
-      > "
+      echo "The  url was copied to your clipboard."
       echo "http://imagebin.org/index.php?mode=image&id=$full" | tr -d '\n' | xclip
       ;;
   esac
 done
+rm $tmp
+rm $thumb
