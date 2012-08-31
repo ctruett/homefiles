@@ -29,6 +29,7 @@ alias look='yaourt -Ss '
 alias remove='yaourt -R '
 alias cleandeps='sudo pacman -Rns $(pacman -Qqtd)'
 
-alias yt='youtube-viewer -n -quiet -C -append_mplayer=" -vo xv -quiet -zoom" --results 5 '
+alias yt='youtube-viewer -n -quiet -C --resolution=480 -append_mplayer=" -vo xv -quiet -zoom" --results 5 '
+alias ytv='youtube-viewer -quiet -C -append_mplayer=" -vo xv -quiet -zoom" --results 5 '
 
 PS1='[\W] '

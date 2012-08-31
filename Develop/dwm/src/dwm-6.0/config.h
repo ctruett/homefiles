@@ -7,19 +7,19 @@ static const char font[]            = "-*-terminus2-medium-r-*-*-12-*-*-*-*-*-*-
 static const char colors[NUMCOLORS][ColLast][9] = {
   // Dark Colors
   // border foreground background
-  { "#4e4e4e", "#666666", "#4e4e4e" }, // 0 = normal
-  { "#759073", "#FFFFFF", "#4e4e4e" }, // 1 = selected
-  { "#212121", "#B98585", "#4e4e4e" }, // 2 = red
+  { "#444444", "#444444", "#000000" }, // 0 = normal
+  { "#ff0000", "#FFFFFF", "#000000" }, // 1 = selected
+  { "#212121", "#ff0000", "#000000" }, // 2 = red
   { "#212121", "#FFFFFF", "#759073" }, // 3 = green
-  { "#212121", "#6C9E9F", "#4e4e4e" },
-  // { "#212121", "#C0AE81", "#4e4e4e" }, // 4 = yellow
-  { "#212121", "#6C9E9F", "#4e4e4e" }, // 5 = blue
-  { "#212121", "#FFFFFF", "#6C9E9F" }, // 5 = blue
+  { "#212121", "#ff0000", "#000000" },
+  // { "#212121", "#C0AE81", "#000000" }, // 4 = yellow
+  { "#212121", "#666666", "#000000" }, // 5 = blue
+  { "#212121", "#FFFFFF", "#666666" }, // 5 = blue
   { "#212121", "#FFFFFF", "#D28DBB" }, // 7 = magenta
-  { "#212121", "#777777", "#4e4e4e" }, // 8 = grey
+  { "#212121", "#777777", "#000000" }, // 8 = grey
 };
 
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
@@ -30,12 +30,9 @@ static const char *tags[] = { "\u00c2", "\u00C0", "\u00C1" , "\u00C8", "\u00CE "
 static const Rule rules[] = {
   /* class      instance    title       tags mask     isfloating   monitor */
   // { NULL    , NULL        , NULL           , 0    , True  , -1 } ,
-  { "URxvt "   , NULL        , "chris@arch:~" , 1<<0 , False , -1 } ,
-  { "URxvt"    , NULL        , "weechat"      , 1<<2 , False , -1 } ,
-  { "URxvt"    , NULL        , "weechat"      , 1<<2 , False , -1 } ,
-  // { "URxvt"    , NULL        , "htop"         , 1<<5 , False , -1 } ,
-  { "URxvt"    , NULL        , "pyradio"      , 1<<4 , False , -1 } ,
-  // { "URxvt"    , NULL        , "alsamixer"    , 1<<5 , False , -1 } ,
+  { "XTerm"    , NULL        , "chris@arch:~" , 1<<0 , False , -1 } ,
+  { "XTerm"    , NULL        , "irssi"        , 1<<2 , False , -1 } ,
+  { "XTerm"    , NULL        , "pyradio"      , 1<<4 , False , -1 } ,
   { "Vlc"      , NULL        , NULL           , 1<<3 , False , -1 } ,
   { "Firefox"  , "Browser"   , NULL           , 0    , True  , -1 } ,
   { "Firefox"  , "Dialog"    , NULL           , 0    , True  , -1 } ,
@@ -105,12 +102,12 @@ static Key keys[] = {
   { MODKEY,            XK_Tab,                   view,            {0} },
   { MODKEY|ShiftMask,  XK_q,                     killclient,      {0} },
   { MODKEY,            XK_t,                     setlayout,       {.v = &layouts[0]} },
-  { MODKEY,            XK_space,                 setlayout,       {.v = &layouts[1]} },
+  // { MODKEY,            XK_space,                 setlayout,       {.v = &layouts[1]} },
   { MODKEY,            XK_Return,                setlayout,       {.v = &layouts[2]} },
   { MODKEY,            XK_b,                     setlayout,       {.v = &layouts[3]} },
   { MODKEY,            XK_g,                     setlayout,       {.v = &layouts[4]} },
   { MODKEY,            XK_f,                     setlayout,       {.v = &layouts[5]} },
-  // { MODKEY,            XK_space,                 setlayout,       {0} },
+  { MODKEY,            XK_space,                 setlayout,       {0} },
   { MODKEY|ShiftMask,  XK_space,                 togglefloating,  {0} },
   { MODKEY,            XK_grave,                 view,            {.ui = ~0 } },
   // { MODKEY|ShiftMask,  XK_0,                     tag,             {.ui = ~0 } },
@@ -120,7 +117,7 @@ static Key keys[] = {
   { MODKEY|ShiftMask,  XK_period,                tagmon,          {.i = +1 } },
     TAGKEYS(                        XK_1,  0)
     TAGKEYS(                        XK_2,  1)
-    TAGKEYS(                        XK_c,  2)
+    TAGKEYS(                        XK_w,  2)
     TAGKEYS(                        XK_v,  3)
     TAGKEYS(                        XK_r,  4)
     TAGKEYS(                        XK_c,  5)

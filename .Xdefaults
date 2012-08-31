@@ -1,15 +1,17 @@
-! *termName: rxvt-unicode
-*termName: xterm-256color
-*font: x:-*-terminus2-*-r-*-*-12-*-*-*-*-*-*-*
-*boldFont: x:-*-terminus2-*-r-*-*-12-*-*-*-*-*-*-*
+*font:-*-terminus2-*-r-*-*-12-*-*-*-*-*-*-*
+*boldFont:-*-terminus2-*-r-*-*-12-*-*-*-*-*-*-*
+
+*metaSendsEscape:true
+
 *depth: 24
 *perl-ext-common:  matcher
 *urlLauncher:      firefox
 *matcher.button:   1
 *scrollBar: false
 *buffered: false
+*boldMode: false
 
-*background: [85]#4e4e4e
+*background: #000000
 *foreground: #dcdccc
 *cursorColor: #aaaaaa
 *underlineColor: #888888

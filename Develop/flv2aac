@@ -1,0 +1,5 @@
+#!/bin/bash
+
+BASE=$(basename "$1" .flv)
+ffmpeg -loglevel panic -i "$1" -vn -acodec copy "$BASE".aac;
+rm "$1"

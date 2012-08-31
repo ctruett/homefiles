@@ -10,10 +10,11 @@ startup ()
   ibus-daemon &                                                         # Load japanese input
   xset +fp /usr/share/fonts/local                                       # Load local fonts
   xset +fp ~/.fonts                                                     # Load local fonts
-  # ~/Develop/connect-wifi &
-  ~/Develop/wallpaper-rotate &
+  # ~/Develop/wallpaper-rotate &
+  feh --bg-fill ~/Wallpapers/Simple/all_star.png &
 
-  sleep 0.25                                                            # Pause, then switch workspaces to activate wallpaper
+  sleep 0.25
+  # Pause, then switch workspaces to activate wallpaper
   xdotool key Alt+2
   xdotool key Alt+1
 
@@ -22,9 +23,11 @@ startup ()
 
 programs ()
 {
+  mpd &
   xterm &
   xterm -e pyradio &
-  xterm -e weechat-curses &
+  xterm -e irssi &
+  xdotool key Alt+w
 }
 
 startup
