@@ -2,6 +2,8 @@
 # Screenshot tool by Christopher Truett [chris.truett@gmail.com] "http://github.com/ctruett"
 # Upload function from http://argandgahandapandpa.wordpress.com/
 clear
+tmp=$(mktemp --suffix=".png")
+thumb="/tmp/$(basename $tmp .png)-thumb.png"
 
 upload() {
   if [ -n "$1" ]; then
@@ -18,28 +20,29 @@ upload() {
 }
 
 if ( ! getopts ":bu" opt); then
+  echo $tmp
+  echo $thumb
   echo "Please select -u for URL or -b for BBcode."
 fi
+
 while getopts ":bu" opt; do
   case $opt in
     b)
-      tmp=$(mktemp --suffix=".png")
-      thumb="$(basename $tmp .png)-thumb.png"
       scrot -t 10 $tmp
       full=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
-      tiny=$(upload "$thumb" | sed -e "s^http://imagebin.org/^^g")
+      tiny=$(upload $thumb | sed -e "s^http://imagebin.org/^^g")
       echo "The BBCode was copied to your clipboard."
       echo "[url=http://imagebin.org/index.php?mode=image&id=$full][img]http://imagebin.org/index.php?mode=image&id=$tiny[/img][/url]" | tr -d '\n' | xclip
-      rm $tmp
+      echo "[url=http://imagebin.org/index.php?mode=image&id=$full][img]http://imagebin.org/index.php?mode=image&id=$tiny[/img][/url]" | tr -d '\n' | xclip -sel clip
       rm $thumb
       ;;
     u) 
-      tmp=$(mktemp --suffix=".png")
       scrot $tmp
       full=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
       echo "The  url was copied to your clipboard."
       echo "http://imagebin.org/index.php?mode=image&id=$full" | tr -d '\n' | xclip
-      rm $tmp
+      echo "http://imagebin.org/index.php?mode=image&id=$full" | tr -d '\n' | xclip -sel clip
       ;;
   esac
 done
+rm $tmp
