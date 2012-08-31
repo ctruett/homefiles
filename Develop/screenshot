@@ -25,30 +25,30 @@ while getopts ":bu" opt; do
   case $opt in
     b)
       scrot -t 10 $tmp
-      echo
-      echo "BB Code mode."
-      echo
+      echo "
+      > BB Code mode.
+      > "
       full=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
       tiny=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
-      echo
-      echo "The following BBCode was copied to your clipboard:"
-      echo
-      echo "[url=http://imagebin.org/index.php?mode=image&id=$full]"
-      echo "[img]http://imagebin.org/index.php?mode=image&id=$tiny[/img]"
-      echo "[/url]"
-      echo
+      echo "
+      > The following BBCode was copied to your clipboard:
+      >
+      > [url=http://imagebin.org/index.php?mode=image&id=$full]
+      > [img]http://imagebin.org/index.php?mode=image&id=$tiny[/img]
+      > [/url]
+      > "
       echo "[url=http://imagebin.org/index.php?mode=image&id=$full][img]http://imagebin.org/index.php?mode=image&id=$tiny[/img][/url]" | tr -d '\n' | xclip
       ;;
     u) 
       scrot $tmp
-      echo
-      echo "URL mode."
-      echo
+      echo "
+      > URL mode.
+      > "
       full=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
-      echo
-      echo "The following url was copied to your clipboard:"
-      echo "http://imagebin.org/index.php?mode=image&id=$full"
-      echo
+      echo "
+      > The following url was copied to your clipboard:
+      > http://imagebin.org/index.php?mode=image&id=$full
+      > "
       echo "http://imagebin.org/index.php?mode=image&id=$full" | tr -d '\n' | xclip
       ;;
   esac

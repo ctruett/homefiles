@@ -15,7 +15,7 @@ alias cls="clear"
 
 alias ls='ls --color=auto'
 alias mkdwm='makepkg -efi --skipinteg'
-alias sprunge="curl -F 'sprunge=<-' http://sprunge.us | xclip -sel PRIMARY"
+alias sprunge="curl -s -F 'sprunge=<-' http://sprunge.us | tr -d '\n' | xclip"
 alias wifi='sudo wifi-menu eth0'
 
 # lamp
