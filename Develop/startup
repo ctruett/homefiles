@@ -5,16 +5,13 @@ startup ()
   setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'   # Fix keys
   unclutter &
   xgamma -gamma 0.8 &                                                    # Fix gamma
-  # compton -i 0.85 &
   autocutsel -selection PRIMARY -fork &                                 # Combine clipboards
   ibus-daemon &                                                         # Load japanese input
   xset +fp /usr/share/fonts/local                                       # Load local fonts
   xset +fp ~/.fonts                                                     # Load local fonts
-  # ~/Develop/wallpaper-rotate &
   feh --bg-fill ~/Wallpapers/Simple/all_star.png &
 
   sleep 0.25
-  # Pause, then switch workspaces to activate wallpaper
   xdotool key Alt+2
   xdotool key Alt+1
 
@@ -27,7 +24,6 @@ programs ()
   xterm &
   xterm -e pyradio &
   xterm -e irssi &
-  xdotool key Alt+w
 }
 
 startup

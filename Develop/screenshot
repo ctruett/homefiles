@@ -1,10 +1,8 @@
 #!/bin/bash
 # Screenshot tool by Christopher Truett [chris.truett@gmail.com] "http://github.com/ctruett"
 # Upload function from http://argandgahandapandpa.wordpress.com/
-
-mkdir -p ~/screentmp/
-cd ~/screentmp/
-scrot -d 3 -c -t 10 screen.png
+clear
+tmp=$(mktemp --suffix=".png")
 
 upload() {
   if [ -n "$1" ]; then
@@ -20,23 +18,38 @@ upload() {
     http://imagebin.org/index.php -w '%{redirect_url}\n'
 }
 
-echo
-echo "Screenshot successful. Now uploading images."
-echo
-
-full=`upload screen.png | sed -e "s^http://imagebin.org/^^g"`
-tiny=`upload screen-thumb.png | sed -e "s^http://imagebin.org/^^g"`
-
-echo
-echo "BBCode:"
-echo
-echo "[url=http://imagebin.org/index.php?mode=image&id=$full]"
-echo "[img]http://imagebin.org/index.php?mode=image&id=$tiny[/img]"
-echo "[/url]"
-echo
-echo "BBCode was also copied to your clipboard."
-echo
-
-echo "[url=http://imagebin.org/index.php?mode=image&id=$full][img]http://imagebin.org/index.php?mode=image&id=$tiny[/img][/url]" | xclip -sel clip
-
-rm -rf ~/screentmp
+if ( ! getopts ":bu" opt); then
+  echo "Please select -u for URL or -b for BBcode."
+fi
+while getopts ":bu" opt; do
+  case $opt in
+    b)
+      scrot -t 10 $tmp
+      echo
+      echo "BB Code mode."
+      echo
+      full=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
+      tiny=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
+      echo
+      echo "The following BBCode was copied to your clipboard:"
+      echo
+      echo "[url=http://imagebin.org/index.php?mode=image&id=$full]"
+      echo "[img]http://imagebin.org/index.php?mode=image&id=$tiny[/img]"
+      echo "[/url]"
+      echo
+      echo "[url=http://imagebin.org/index.php?mode=image&id=$full][img]http://imagebin.org/index.php?mode=image&id=$tiny[/img][/url]" | tr -d '\n' | xclip
+      ;;
+    u) 
+      scrot $tmp
+      echo
+      echo "URL mode."
+      echo
+      full=$(upload $tmp | sed -e "s^http://imagebin.org/^^g")
+      echo
+      echo "The following url was copied to your clipboard:"
+      echo "http://imagebin.org/index.php?mode=image&id=$full"
+      echo
+      echo "http://imagebin.org/index.php?mode=image&id=$full" | tr -d '\n' | xclip
+      ;;
+  esac
+done
