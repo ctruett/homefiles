@@ -9,7 +9,7 @@ startup ()
   ibus-daemon &                                                         # Load japanese input
   xset +fp /usr/share/fonts/local                                       # Load local fonts
   xset +fp ~/.fonts                                                     # Load local fonts
-  feh --bg-fill ~/Wallpapers/Simple/all_star.png &
+  feh --bg-fill ~/Wallpapers/Cars/Maserati_Granturismo_William_Stern_Wallpaper.jpg &
 
   sleep 0.25
   xdotool key Alt+2

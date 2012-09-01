@@ -7,8 +7,8 @@ static const char font[]            = "-*-terminus2-medium-r-*-*-12-*-*-*-*-*-*-
 static const char colors[NUMCOLORS][ColLast][9] = {
   // Dark Colors
   // border foreground background
-  { "#444444", "#444444", "#000000" }, // 0 = normal
-  { "#ff0000", "#ff0000", "#000000" }, // 1 = selected
+  { "#4e4e4e", "#4e4e4e", "#1c1c1c" }, // 0 = normal
+  { "#7c7cA6", "#ffffff", "#000000" }, // 1 = selected
   { "#212121", "#ffffff", "#000000" }, // 2 = red
   { "#000000", "#000000", "#000000" }, // <| Color
   { "#000000", "#777777", "#000000" }, // [ DATE ] color
