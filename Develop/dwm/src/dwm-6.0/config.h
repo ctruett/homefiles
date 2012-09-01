@@ -32,6 +32,7 @@ static const Rule rules[] = {
   { "Vlc"      , NULL        , NULL           , 1<<3 , False , -1 } ,
   { "Firefox"  , "Browser"   , NULL           , 0    , True  , -1 } ,
   { "Firefox"  , "Dialog"    , NULL           , 0    , True  , -1 } ,
+  { "Firefox"  , "Downloads" , NULL           , 0    , True  , -1 } ,
   { "Firefox"  , "Places"    , NULL           , 0    , True  , -1 } ,
   { "Firefox"  , "Navigator" , NULL           , 1<<1 , False , -1 } ,
   { "slgui"    , NULL        , NULL           , 1<<2 , False , -1 } ,
