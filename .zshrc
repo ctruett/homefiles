@@ -2,9 +2,6 @@
 # ~/.zshrc
 #
 
-source /etc/profile.d/autojump.bash
-source /etc/profile.d/autojump.sh
-
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
@@ -47,9 +44,8 @@ LC_CTYPE=C
 PAGER='less'
 PATH="/usr/local/bin:/usr/local/sbin/:/bin:/sbin:/usr/bin:/usr/sbin:$PATH"
 PR_NO_COLOR="%{$terminfo[sgr0]%}"
-PS1="[$PR_GREEN%n$PR_WHITE@$PR_GREEN%m$PR_NO_COLOR:$PR_BLUE%2c$PR_NO_COLOR]%(!.#.$) "
-RPS1="$PR_LIGHT_CYAN(%D{%m-%d %H:%M})$PR_NO_COLOR"
 #[[ $- != *i* ]] && return 
+PROMPT='%c > '
 autoload -U compinit
 compinit
 zmodload -a zsh/stat stat
@@ -76,7 +72,7 @@ zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:warnings' format 'No matches for: %d'
-zstyle -e ':completion:*:approximate:*' max-errors \
-    'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
+# zstyle -e ':completion:*:approximate:*' max-errors \
+#     'reply=( $(( ($#PREFIX+$#SUFFIX)/2 )) numeric )'
 #zstyle ':completion:*:*:*:users' ignored-patterns \
 #        foo bar \

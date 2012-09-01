@@ -11,23 +11,52 @@
 *buffered: false
 *boldMode: false
 
-*background: #000000
-*foreground: #dcdccc
-*cursorColor: #ff0000
-*underlineColor: #888888
-*color0: #3f3f3f
-*color1: #cc9393
-*color2: #7f9f7f
-*color3: #d0bf8f
-*color4: #6ca0a3
-*color5: #dc8cc3
-*color6: #93e0e3
-*color7: #dcdccc
-*color8: #000000
-*color9: #dca3a3
-*color10: #bfebbf
-*color11: #f0dfaf
-*color12: #8cd0d3
-*color13: #dc8cc3
-*color14: #93e0e3
+! *background: #000000
+! *foreground: #dcdccc
+! *cursorColor: #ff0000
+! *underlineColor: #888888
+! *color0: #3f3f3f
+! *color1: #cc9393
+! *color2: #7f9f7f
+! *color3: #d0bf8f
+! *color4: #6ca0a3
+! *color5: #dc8cc3
+! *color6: #93e0e3
+! *color7: #dcdccc
+! *color8: #000000
+! *color9: #dca3a3
+! *color10: #bfebbf
+! *color11: #f0dfaf
+! *color12: #8cd0d3
+! *color13: #dc8cc3
+! *color14: #93e0e3
+! *color15: #ffffff
+
+! terminal colors ---------------------
+*background: #1e1e1e
+*foreground: #d0d0d0
+*cursorColor: #D78787
+! Black (not tango) + DarkGrey
+*color0:  #1e1e1e
+*color8:  #3a3a3a
+! DarkRed + Red
+*color1:  #D78787
+*color9:  #D78787
+! DarkGreen + Green
+*color2:  #AFD787
+*color10: #AFD787
+! DarkYellow + Yellow
+*color3:  #FFFFAF
+*color11: #FFFFAF
+! DarkBlue + Blue
+*color4:  #87AFD7
+*color12: #87AFD7
+! DarkMangenta + Mangenta
+*color5:  #C787D7
+*color13: #C787D7
+!DarkCyan + Cyan (both not tango)
+*color6:  #87D1D7
+*color14: #87D1D7
+! LightGrey + White
+*color7:  #D0D0D0
 *color15: #ffffff
