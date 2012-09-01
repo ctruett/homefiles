@@ -25,6 +25,7 @@ static const char *tags[] = { "\u00c2", "\u00C0", "\u00C1" , "\u00C8", "\u00CE "
 static const Rule rules[] = {
   /* class      instance    title       tags mask     isfloating   monitor */
   // { NULL    , NULL        , NULL           , 0    , True  , -1 } ,
+  { "NULL"     , "Dialog"    , NULL           , 0    , True  , -1 } ,
   { "XTerm"    , NULL        , "chris@arch:~" , 1<<0 , False , -1 } ,
   { "XTerm"    , NULL        , "irssi"        , 1<<2 , False , -1 } ,
   { "XTerm"    , NULL        , "pyradio"      , 1<<4 , False , -1 } ,
