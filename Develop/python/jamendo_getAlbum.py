@@ -38,17 +38,19 @@ def getAlbumList(artist_name):
 # Startup function  --------------------------------------------------------------------------------------------------------#
 def startup():
 
-  global dlink
+  def makeProgress(name):
 
-  def dlProgress(count, blockSize, totalSize):
-    percent = int(count*blockSize*100/totalSize)
-    sys.stdout.write("\r" + dlink + "...%d%%" % percent)
-    sys.stdout.flush()
+    def dlProgress(count, blockSize, totalSize):
+      percent = int(count*blockSize*100/totalSize)
+      sys.stdout.write("\r" + name + "...%d%%" % percent)
+      sys.stdout.flush()
+
+    return dlProgress
 
   albums = getAlbumList(args.artist)
   for i in range(len(albums)):
     dlink = urlmap['album'](albums[i]["id"])
     name = args.artist+"-"+albums[i]["name"]
-    urllib.urlretrieve(dlink, name+".zip", reporthook=dlProgress)
+    urllib.urlretrieve(dlink, name+".zip", reporthook=makeProgress(dlink))
 
 startup()
