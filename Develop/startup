@@ -7,7 +7,7 @@ startup ()
   setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'
   unclutter &
   xgamma -gamma 0.8 &
-  xflux &
+  xflux -z 30533 &
   autocutsel -selection PRIMARY -fork &
   xset +fp /usr/share/fonts/local
   xset +fp ~/.fonts
