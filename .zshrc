@@ -2,6 +2,12 @@
 # ~/.zshrc
 #
 
+# Set up autojump
+autoload -U compinit; compinit
+export AUTOJUMP_IGNORE_CASE=1
+setopt nolistambiguous
+source /etc/profile
+
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus

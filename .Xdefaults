@@ -34,7 +34,7 @@
 
 ! terminal colors ---------------------
 *background: #1e1e1e
-*foreground: #d0d0d0
+*foreground: #cccccc
 *cursorColor: #D78787
 ! Black (not tango) + DarkGrey
 *color0:  #1e1e1e

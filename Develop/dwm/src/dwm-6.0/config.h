@@ -28,6 +28,7 @@ static const Rule rules[] = {
   { "NULL"     , "Dialog"    , NULL           , 0    , True  , -1 } ,
   { "XTerm"    , NULL        , "chris@arch:~" , 1<<0 , False , -1 } ,
   { "XTerm"    , NULL        , "irssi"        , 1<<2 , False , -1 } ,
+  { "XTerm"    , NULL        , "ncmpcpp"      , 1<<4 , False , -1 } ,
   { "XTerm"    , NULL        , "pyradio"      , 1<<4 , False , -1 } ,
   { "Vlc"      , NULL        , NULL           , 1<<3 , False , -1 } ,
   { "Firefox"  , "Browser"   , NULL           , 0    , True  , -1 } ,
@@ -40,7 +41,7 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact      = 0.7; /* factor of master area size [0.05..0.95] */
+static const float mfact      = 0.63; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
 static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 

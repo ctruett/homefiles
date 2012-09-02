@@ -22,7 +22,6 @@ programs ()
 {
   mpd &
   xterm &
-  xterm -e pyradio &
   xterm -e ncmpcpp &
   xterm -e irssi &
 }

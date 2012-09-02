@@ -1,12 +1,12 @@
 call pathogen#infect()
 
 set t_Co=256
-colo zenburn
-" colo github
+colo xoria256
 set go=-T
 set go=-t
 set go=-r
 set go=-R
+set nu
 set guifont=DejaVu\ Sans\ Mono\ 8
 
 " Forget compatibility with Vi. Who cares.
@@ -88,8 +88,8 @@ nmap <silent> <leader>cd :lcd %:h<CR>
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
 " Map the arrow keys to be based on display lines, not physical lines
-map <j> gj
-map <k> gk
+nnoremap <j> gj
+nnoremap <k> gk
 
 " Adjust viewports to the same size
 map <Leader>= <C-w>=
@@ -111,7 +111,7 @@ imap <A-[> <Esc><<i
 
 
 "" Whitespace
-set nowrap " don't wrap lines
+set wrap " don't wrap lines
 set tabstop=2 " a tab is two spaces
 set shiftwidth=2 " an autoindent (with <<) is two spaces
 set expandtab " use spaces, not tabs
@@ -207,8 +207,11 @@ function! WriteBackup()
 endfunction
 
 nnoremap <Leader>ba :<C-U>call WriteBackup()<CR>
-
-nnoremap <leader>da "=strftime("%B %d, %Y - %I:%M %p")<CR>P
+nnoremap <leader>da "=strftime("%A, %B %d, %Y - %I:%M %p")<CR>P
+" nnoremap ' /
+" nnoremap " ?
+" nnoremap / '
+" nnoremap ? "
 
 set mouse=a
 let g:CSApprox_attr_map = { 'bold' : 'bold', 'italic' : '', 'sp' : '' }
@@ -233,3 +236,41 @@ endfunction
 
 autocmd BufWriteCmd  *.html,*.css,*.less,*.php  :call Refresh_firefox()
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! VisualSelection(direction) range
+  let l:saved_reg = @"
+  execute "normal! vgvy"
+
+  let l:pattern = escape(@", '\\/.*$^~[]')
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+  if a:direction == 'b'
+    execute "normal ?" . l:pattern . "^M"
+  elseif a:direction == 'gv'
+    call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+  elseif a:direction == 'replace'
+    call CmdLine("%s" . '/'. l:pattern . '/')
+  elseif a:direction == 'f'
+    execute "normal /" . l:pattern . "^M"
+  endif
+
+  let @/ = l:pattern
+  let @" = l:saved_reg
+endfunction
+
+function! CmdLine(str)
+  exe "menu Foo.Bar :" . a:str
+  emenu Foo.Bar
+  unmenu Foo
+endfunction
+
+vnoremap <silent> gv :call VisualSelection('gv')<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <leader>pp :PyExecBuffer<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let loaded_matchparen = 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufReadPre *.doc set ro
+autocmd BufReadPre *.doc set hlsearch!
+autocmd BufReadPost *.doc %!antiword "%"
