@@ -7,7 +7,7 @@ startup ()
   setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'
   unclutter &
   xgamma -gamma 0.8 &
-  xflux -z 30533 &
+  # xflux -z 30533 &
   autocutsel -selection PRIMARY -fork &
   xset +fp /usr/share/fonts/local
   xset +fp ~/.fonts
@@ -20,12 +20,11 @@ startup ()
 
 programs ()
 {
-  dtach -c /tmp/irssi -Ez irssi
-  dtach -c /tmp/ncmpcpp -Ez ncmpcpp
   mpd &
-  urxvtc &
-  urxvtc -title irssi -e dtach -a /tmp/irssi
-  urxvtc -title ncmpcpp -e dtach -a /tmp/ncmpcpp
+  xterm &
+  xterm -title irssi   -e dtach -A /tmp/irssi   -z irssi   &
+  xterm -title ncmpcpp -e dtach -A /tmp/ncmpcpp -z ncmpcpp &
+  xterm -title mail    -e dtach -A /tmp/mutt    -z mutt    &
 }
 
 ~/Develop/bar &

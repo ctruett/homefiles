@@ -778,13 +778,15 @@ drawbar(Monitor *m) {
   dc.x = 0;
   for(i = 0; i < LENGTH(tags); i++) {
     dc.w = TEXTW(tags[i]);
-    col = dc.colors[ (m->tagset[m->seltags] & 1 << i) ?  1 : (urg & 1 << i ? 2:(occ & 1 << i ? 4:0)) ];
+
+    /* Define what colors go to what from our colors array*/
+    col = dc.colors[ (m->tagset[m->seltags] & 1 << i) ?  1: (urg & 1 << i ? 2:(occ & 1 << i ? 4:0)) ];
     drawtext(tags[i], col, True);
     dc.x += dc.w;
   }
-  dc.w = blw = TEXTW(m->ltsymbol);
-  drawtext(m->ltsymbol, dc.colors[0], False);
-  dc.x += dc.w;
+  /* dc.w = blw = TEXTW(m->ltsymbol);*/
+  /* drawtext(m->ltsymbol, dc.colors[0], False);*/
+  /* dc.x += dc.w;*/
   x = dc.x;
   if(m == selmon) { /* status is only drawn on selected monitor */
     dc.w = textnw(stext, strlen(stext)); // no padding
@@ -801,7 +803,10 @@ drawbar(Monitor *m) {
     dc.x = x;
     if(m->sel) {
       col = dc.colors[ m == selmon ? 1 : 0 ];
-      drawtext(m->sel->name, col, True);
+      /* drawtext(m->sel->name, col, True);*/
+
+      /* Pick a specific color from the array to make the title text*/
+      drawtext(m->sel->name, dc.colors[3], True);
     }
     else
       drawtext(NULL, dc.colors[0], False);

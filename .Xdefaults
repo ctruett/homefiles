@@ -1,36 +1,12 @@
-*font:-*-terminus2-*-r-*-*-12-*-*-*-*-*-*-*
-*boldFont:-*-terminus2-*-r-*-*-12-*-*-*-*-*-*-*
+xterm*font:-*-codec terminal text-*-*-*-*-15-*-*-*-*-*-*-*
+xterm*boldFont:-*-codec terminal text-*-*-*-*-15-*-*-*-*-*-*-*
 
 *metaSendsEscape:true
 
 *depth: 24
-*perl-ext-common:  matcher
-*urlLauncher:      firefox
-*matcher.button:   1
 *scrollBar: false
 *buffered: false
 *boldMode: false
-
-! *background: #000000
-! *foreground: #dcdccc
-! *cursorColor: #ff0000
-! *underlineColor: #888888
-! *color0: #3f3f3f
-! *color1: #cc9393
-! *color2: #7f9f7f
-! *color3: #d0bf8f
-! *color4: #6ca0a3
-! *color5: #dc8cc3
-! *color6: #93e0e3
-! *color7: #dcdccc
-! *color8: #000000
-! *color9: #dca3a3
-! *color10: #bfebbf
-! *color11: #f0dfaf
-! *color12: #8cd0d3
-! *color13: #dc8cc3
-! *color14: #93e0e3
-! *color15: #ffffff
 
 ! terminal colors ---------------------
 *background: #1e1e1e

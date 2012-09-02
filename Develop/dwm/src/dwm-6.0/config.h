@@ -1,47 +1,46 @@
-#include <X11/XF86keysym.h>
 /* See LICENSE file for copyright and license details. */
+#include <X11/XF86keysym.h>
 
 /* appearance */
-static const char font[]            = "-*-terminus2-medium-r-*-*-12-*-*-*-*-*-*-*";
+static const char font[] ="-*-codec terminal-*-*-*-*-15-*-*-*-*-*-*-*";
+
 #define NUMCOLORS 5
 static const char colors[NUMCOLORS][ColLast][9] = {
-  // Dark Colors
   // border foreground background
   { "#4e4e4e", "#4e4e4e", "#1c1c1c" }, // 0 = normal
-  { "#7c7cA6", "#ffffff", "#000000" }, // 1 = selected
-  { "#212121", "#ffffff", "#000000" }, // 2 = red
-  { "#000000", "#000000", "#000000" }, // <| Color
-  { "#000000", "#777777", "#000000" }, // [ DATE ] color
+  { "#7c7cA6", "#ffffff", "#7c7cA6" }, // 1 = selected
+  { "#212121", "#ffffff", "#1c1c1c" }, // 2 = red
+  { "#000000", "#ffffff", "#1c1c1c" }, // <| Color
+  { "#000000", "#7c7cA6", "#1c1c1c" }, // [ DATE ] color
 };
 
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
-static const Bool topbar            = True;     /* False means bottom bar */
+static const Bool topbar            = False;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "\u00c2", "\u00C0", "\u00C1" , "\u00C8", "\u00CE " };
+static const char *tags[] = { "scratch", "chat", "web", "video" };
 
 static const Rule rules[] = {
   /* class      instance    title       tags mask     isfloating   monitor */
   // { NULL    , NULL        , NULL           , 0    , True  , -1 } ,
   { "NULL"     , "Dialog"    , NULL           , 0    , True  , -1 } ,
-  { "URxvt"    , NULL        , "chris@arch:~" , 1<<0 , False , -1 } ,
-  { "URxvt"    , NULL        , "irssi"        , 1<<2 , False , -1 } ,
-  { "URxvt"    , NULL        , "ncmpcpp"      , 1<<4 , False , -1 } ,
-  { "URxvt"    , NULL        , "pyradio"      , 1<<4 , False , -1 } ,
+  { "XTerm"    , NULL        , "chris@arch:~" , 1<<0 , False , -1 } ,
+  { "XTerm"    , NULL        , "irssi"        , 1<<1 , False , -1 } ,
+  { "XTerm"    , NULL        , "ncmpcpp"      , 0    , True  , -1 } ,
+  { "XTerm"    , NULL        , "mutt"         , 0    , True  , -1 } ,
+  { "XTerm"    , NULL        , "pyradio"      , 1<<4 , False , -1 } ,
   { "Vlc"      , NULL        , NULL           , 1<<3 , False , -1 } ,
   { "Firefox"  , "Browser"   , NULL           , 0    , True  , -1 } ,
   { "Firefox"  , "Dialog"    , NULL           , 0    , True  , -1 } ,
   { "Firefox"  , "Downloads" , NULL           , 0    , True  , -1 } ,
   { "Firefox"  , "Places"    , NULL           , 0    , True  , -1 } ,
-  { "Firefox"  , "Navigator" , NULL           , 1<<1 , False , -1 } ,
-  { "slgui"    , NULL        , NULL           , 1<<2 , False , -1 } ,
-  { "Qjackctl" , NULL        , NULL           , 1<<3 , True  , -1 } ,
+  { "Firefox"  , "Navigator" , NULL           , 1<<2 , False , -1 } ,
 };
 
 /* layout(s) */
-static const float mfact      = 0.63; /* factor of master area size [0.05..0.95] */
+static const float mfact      = 0.60; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
 static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
@@ -50,28 +49,31 @@ static const Bool resizehints = False; /* True means respect size hints in tiled
 #include "fibonacci.c"
 static const Layout layouts[] = {
   /* symbol     arrange function */
-  { "\u00C9",      tile },    /* first entry is default */
-  { "\u00CA",      NULL },    /* no layout function means floating behavior */
-  { "\u00CB",      monocle },
-  { "\u00CC",      bstack },
-  { "\u00CD",      gaplessgrid },
-  { "\u00CD",      fibonacci }
+  { "[t]",      tile },    /* first entry is default */
+  { "[f]",      NULL },    /* no layout function means floating behavior */
+  { "[m]",      monocle },
+  { "[b]",      bstack },
+  { "[g]",      gaplessgrid },
+  { "[s]",      fibonacci }
 };
 
 /* key definitions */
 #define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+{ MODKEY,                       KEY,      toggleview,     {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask,           KEY,      tag,            {.ui = 1 << TAG} }, \
+{ MODKEY|ShiftMask,             KEY,      view,           {.ui = 1 << TAG} }, \
+{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char  *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
-static const char *termcmd[]    = { "urxvtc", NULL };
+static const char  *dmenucmd[]  = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG], "-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
+static const char *termcmd[]    = { "xterm", NULL };
+static const char *chatcmd[]    = { "xterm", "-title,", "irssi", "-e", "dtach", "-A", "/tmp/irssi", "-z", "irssi", NULL };
+static const char *musiccmd[]   = { "xterm", "-title,", "ncmpcpp", "-e", "dtach", "-A", "/tmp/ncmpcpp", "-z", "ncmpcpp", NULL };
+static const char *mailcmd[]    = { "xterm", "-title,", "mutt", "-e", "dtach", "-A", "/tmp/mutt", "-z", "mutt", NULL };
 static const char *volumedown[] = { "amixer", "-q", "set", "PCM", "2%-", "unmute", NULL };
 static const char *volumeup[]   = { "amixer", "-q", "set", "PCM", "2%+", "unmute", NULL };
 static const char *mute[]       = { "amixer", "-q", "set", "PCM", "toggle", NULL };
@@ -86,6 +88,9 @@ static Key keys[] = {
   { 0,                 XF86XK_AudioMute,         spawn,           { .v = mute } },
   { MODKEY|ShiftMask,  XK_bracketright,          spawn,           {.v = rotatewall } },
   { MODKEY,            XK_v,                     spawn,           {.v = vlc } },
+  { MODKEY,            XK_i,                     spawn,           {.v = chatcmd } },
+  { MODKEY,            XK_r,                     spawn,           {.v = musiccmd } },
+  { MODKEY,            XK_c,                     spawn,           {.v = mailcmd } },
   { MODKEY,            XK_p,                     spawn,           {.v = dmenucmd } },
   { MODKEY|ShiftMask,  XK_Return,                spawn,           {.v = termcmd } },
   { MODKEY,            XK_j,                     focusstack,      {.i = +1 } },
@@ -114,15 +119,15 @@ static Key keys[] = {
   { MODKEY|ShiftMask,  XK_comma,                 tagmon,          {.i = -1 } },
   { MODKEY|ShiftMask,  XK_period,                tagmon,          {.i = +1 } },
     TAGKEYS(                        XK_1,  0)
-    TAGKEYS(                        XK_2,  1)
-    TAGKEYS(                        XK_w,  2)
+    TAGKEYS(                        XK_w,  1)
+    TAGKEYS(                        XK_2,  2)
     TAGKEYS(                        XK_v,  3)
-    TAGKEYS(                        XK_r,  4)
-    TAGKEYS(                        XK_c,  5)
-    TAGKEYS(                        XK_7,  6)
-    TAGKEYS(                        XK_8,  7)
-    TAGKEYS(                        XK_9,  8)
-  { MODKEY|ControlMask,           XK_q,      quit,           {0} },
+    // TAGKEYS(                        XK_x,  4)
+    // TAGKEYS(                        XK_c,  5)
+    // TAGKEYS(                        XK_7,  6)
+    // TAGKEYS(                        XK_8,  7)
+    // TAGKEYS(                        XK_9,  8)
+    { MODKEY|ControlMask,           XK_q,      quit,           {0} },
 };
 
 
