@@ -30,8 +30,13 @@ alias look='yaourt -Ss '
 alias remove='yaourt -R '
 alias cleandeps='sudo pacman -Rns $(pacman -Qqtd)'
 
+# youtube
 alias yt='youtube-viewer -n -quiet -C --resolution=480 -append_mplayer=" -vo xv -quiet -zoom" --results 5 '
 alias ytv='youtube-viewer --resolution=480 -C -append_mplayer=" -vo xv -quiet -zoom" --results 5 '
+
+# dtach
+alias irssid="urxvtc -title irssi -e dtach -A /tmp/irssi -z irssi"
+alias ncmpcppd="urxvtc -title ncmpcpp -e dtach -A /tmp/ncmpcpp -z ncmpcpp"
 
 bindkey ';5D' backward-word
 bindkey ';5C' forward-word

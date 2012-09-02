@@ -2,30 +2,33 @@
 
 startup ()
 {
-  setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'   # Fix keys
+  urxvtd -q -f &
+  ibus-daemon &
+  setxkbmap -model inspiron -option 'caps:escape,altwin:ctrl_alt_win'
   unclutter &
-  xgamma -gamma 0.8 &                                                    # Fix gamma
-  autocutsel -selection PRIMARY -fork &                                 # Combine clipboards
-  ibus-daemon &                                                         # Load japanese input
-  xset +fp /usr/share/fonts/local                                       # Load local fonts
-  xset +fp ~/.fonts                                                     # Load local fonts
+  xgamma -gamma 0.8 &
+  xflux &
+  autocutsel -selection PRIMARY -fork &
+  xset +fp /usr/share/fonts/local
+  xset +fp ~/.fonts
   feh --bg-fill ~/Wallpapers/Cars/Maserati_Granturismo_William_Stern_Wallpaper.jpg &
 
   sleep 0.25
   xdotool key Alt+2
   xdotool key Alt+1
-
-  ~/Develop/bar &
 }
 
 programs ()
 {
+  dtach -c /tmp/irssi -Ez irssi
+  dtach -c /tmp/ncmpcpp -Ez ncmpcpp
   mpd &
-  xterm &
-  xterm -e ncmpcpp &
-  xterm -e irssi &
+  urxvtc &
+  urxvtc -title irssi -e dtach -a /tmp/irssi
+  urxvtc -title ncmpcpp -e dtach -a /tmp/ncmpcpp
 }
 
+~/Develop/bar &
 startup
 programs
 
